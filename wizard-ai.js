@@ -1357,7 +1357,7 @@ Toujours prioriser les relations client à long terme plutôt que les victoires 
         'step0.tone': 'Che tono dovrebbe avere il tuo agente?',
         'step0.audience': 'Chi userà questo agente?',
         'step0.hint': 'Sii specifico! Includi cosa dovrebbe fare l\'agente, chi lo userà e quale conoscenza necessita.',
-        'step0.tip': '<strong>💡 Suggerimento:</strong> Più dettagli fornisci, meglio l'IA può generare la configurazione del tuo agente. Includi esempi specifici di domande che gli utenti potrebbero fare o compiti per cui hanno bisogno di aiuto.',
+        'step0.tip': '<strong>💡 Suggerimento:</strong> Più dettagli fornisci, meglio l\'IA può generare la configurazione del tuo agente. Includi esempi specifici di domande che gli utenti potrebbero fare o compiti per cui hanno bisogno di aiuto.',
 
         'tone.professional': 'Professionale e Formale',
         'tone.friendly': 'Amichevole e Colloquiale',
@@ -1440,7 +1440,7 @@ Toujours prioriser les relations client à long terme plutôt que les victoires 
         'audience.placeholder': 'Esempio: Dipendenti aziendali, clienti, membri interni del team...',
         'connected.status': '🟢 Connesso a TD LLM API! Utilizzo connessione locale sulla porta 3001. Tutte le risposte provengono da TD AI tramite la tua installazione di TD Agent Foundry.',
         'quick.examples': 'Esempi Rapidi:',
-        'tip.text': '💡 Suggerimento: Più dettagli fornisci, meglio l'IA può generare la configurazione del tuo agente. Includi esempi specifici di domande che gli utenti potrebbero fare o compiti per cui hanno bisogno di aiuto.',
+        'tip.text': '💡 Suggerimento: Più dettagli fornisci, meglio l\'IA può generare la configurazione del tuo agente. Includi esempi specifici di domande che gli utenti potrebbero fare o compiti per cui hanno bisogno di aiuto.',
 
         // Success messages
         'success.generated': 'Agente generato con successo!',
