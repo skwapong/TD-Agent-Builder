@@ -37,9 +37,10 @@ loadEnv();
 
 // Configuration
 const PORT = process.env.PORT || 3001;
-const TD_API_KEY = process.env.TD_API_KEY;
-const TD_LLM_BASE_URL = process.env.TD_LLM_BASE_URL || 'https://llm-api-development.us01.treasuredata.com';
-const TD_AGENT_ID = process.env.TD_AGENT_ID;
+// Trim API key to remove any newlines/whitespace that might be in env vars
+const TD_API_KEY = (process.env.TD_API_KEY || '').trim();
+const TD_LLM_BASE_URL = (process.env.TD_LLM_BASE_URL || 'https://llm-api-development.us01.treasuredata.com').trim();
+const TD_AGENT_ID = (process.env.TD_AGENT_ID || '').trim() || null;
 const STATIC_DIR = __dirname;
 
 // CORS headers
