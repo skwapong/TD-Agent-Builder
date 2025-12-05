@@ -1,5 +1,5 @@
 // AI-Powered Agent Builder Wizard
-// Integrates with Claude Code AI for intelligent agent generation
+// Integrates with TD Agent Foundry for intelligent agent generation
 
 // State management
 let currentStep = 0;
@@ -41,7 +41,7 @@ let wizardStats = {
 
 // AI Chat state
 let chatHistory = [];
-// Demo mode removed - always using live Claude API
+// Demo mode removed - always using live TD LLM API
 
 // Generation cancellation state
 let generationCancelled = false;
@@ -91,7 +91,7 @@ const translations = {
         // Header
         'page.title': 'AI-Powered Agent Builder',
         'page.subtitle': "Describe your agent, and I'll help you build it step-by-step",
-        'page.powered': 'Powered by Claude Code AI • PM Agent Squad Master Template',
+        'page.powered': 'Powered by TD Agent Foundry • PM Agent Squad Master Template',
         'api.settings': 'API Settings',
 
         // Assistant Panel
@@ -99,8 +99,8 @@ const translations = {
         'assistant.subtitle': 'Your agent building assistant',
         'assistant.welcome': "👋 Hi! I'm your Agent Foundry Assistant. I'll help you build a custom AI Foundry Agent.",
         'assistant.start': "<strong>Let's start:</strong> What kind of agent do you want to build? Describe what it should do.",
-        'assistant.connected': '🟢 Connected to Claude Code CLI!',
-        'assistant.connection.detail': 'Using local connection on port 3001. All responses come from Claude AI via your Claude Code installation.',
+        'assistant.connected': '🟢 Connected to TD LLM API!',
+        'assistant.connection.detail': 'Using local connection on port 3001. All responses come from TD AI via your TD Agent Foundry installation.',
         'button.ask': 'Ask Assistant',
         'button.stop': '⏹️ Stop Response',
         'button.generate': '✨ Auto-Generate Agent',
@@ -120,12 +120,12 @@ const translations = {
 
         // Step 0
         'step0.title': '🎯 Step 0: Describe Your Agent',
-        'step0.info': '<strong>AI-Powered Building:</strong> Tell Claude what your agent needs to do, and it will automatically generate knowledge bases, configuration, and deployment files for you.',
+        'step0.info': '<strong>AI-Powered Building:</strong> Tell TD Agent Foundry what your agent needs to do, and it will automatically generate knowledge bases, configuration, and deployment files for you.',
         'step0.purpose': "What is your agent's purpose?",
         'step0.tone': 'What tone should your agent have?',
         'step0.audience': 'Who will use this agent?',
         'step0.hint': 'Be specific! Include what the agent should do, who will use it, and what knowledge it needs.',
-        'step0.tip': '<strong>💡 Tip:</strong> The more detail you provide, the better Claude can generate your agent configuration. Include specific examples of questions users might ask or tasks they need help with.',
+        'step0.tip': '<strong>💡 Tip:</strong> The more detail you provide, the better AI can generate your agent configuration. Include specific examples of questions users might ask or tasks they need help with.',
 
         // Tone options
         'tone.professional': 'Professional & Formal',
@@ -136,7 +136,7 @@ const translations = {
 
         // Step 1
         'step1.title': '📚 Step 1: Review Knowledge Bases',
-        'step1.info': '<strong>✨ AI-Generated:</strong> Based on your description, Claude has created these knowledge bases for your agent. Review and edit as needed.',
+        'step1.info': '<strong>✨ AI-Generated:</strong> Based on your description, TD Agent Foundry has created these knowledge bases for your agent. Review and edit as needed.',
         'step1.empty': 'Complete Step 0 to generate knowledge bases',
         'step1.kb.title': 'Knowledge Base',
         'step1.kb.content': 'Content',
@@ -147,14 +147,14 @@ const translations = {
 
         // Step 2
         'step2.title': '⚙️ Step 2: Review Project Setup',
-        'step2.info': '<strong>✨ AI-Generated:</strong> Claude has configured your project settings. Review and modify if needed.',
+        'step2.info': '<strong>✨ AI-Generated:</strong> TD Agent Foundry has configured your project settings. Review and modify if needed.',
         'step2.next': '<strong>📍 Next Step:</strong> After completing this wizard, open <a href="https://console.treasuredata.com/app/agents" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">Treasure Data → AI Agent Foundry</a> to deploy your agent.',
         'step2.name': 'Project Name',
         'step2.description': 'Project Description',
 
         // Step 3
         'step3.title': '🤖 Step 3: Review Agent Configuration',
-        'step3.info': '<strong>✨ AI-Generated:</strong> Claude has selected optimal settings for your agent. Customize if needed.',
+        'step3.info': '<strong>✨ AI-Generated:</strong> TD Agent Foundry has selected optimal settings for your agent. Customize if needed.',
         'step3.name': 'Agent Display Name',
         'step3.model': 'AI Model',
         'step3.temperature': 'Temperature:',
@@ -213,9 +213,9 @@ const translations = {
         'chat.placeholder': 'Example: I want to build a campaign planning agent that helps marketers create comprehensive marketing campaigns across multiple channels...',
         'example.text': 'Example: I want to build a campaign planning agent that helps marketers create comprehensive marketing campaigns across multiple channels...',
         'audience.placeholder': 'Example: Company employees, customers, internal team members...',
-        'connected.status': '🟢 Connected to Claude Code CLI! Using local connection on port 3001. All responses come from Claude AI via your Claude Code installation.',
+        'connected.status': '🟢 Connected to TD LLM API! Using local connection on port 3001. All responses come from TD AI via your TD Agent Foundry installation.',
         'quick.examples': 'Quick Examples:',
-        'tip.text': '💡 Tip: The more detail you provide, the better Claude can generate your agent configuration. Include specific examples of questions users might ask or tasks they need help with.',
+        'tip.text': '💡 Tip: The more detail you provide, the better AI can generate your agent configuration. Include specific examples of questions users might ask or tasks they need help with.',
 
         // Success messages
         'success.generated': 'Agent generated successfully!',
@@ -230,8 +230,8 @@ const translations = {
         'sidebar.step2.msg': '🔧 Now let\'s configure your project. I\'ve pre-filled the details based on your description.',
         'sidebar.step3.msg': '🤖 Almost there! Review your agent settings. I\'ve optimized the model and temperature for your use case.',
         'sidebar.step4.msg': '🎉 Excellent! Your agent is ready to deploy. Download the files and follow the Agent Foundry deployment guide.',
-        'sidebar.generating': '✨ Asking Claude AI to generate your agent configuration...',
-        'sidebar.connected': '🟢 Connected to Claude Code CLI! Using local connection on port 3001. All responses come from Claude AI via your Claude Code installation.',
+        'sidebar.generating': '✨ Asking TD AI to generate your agent configuration...',
+        'sidebar.connected': '🟢 Connected to TD LLM API! Using local connection on port 3001. All responses come from TD AI via your TD Agent Foundry installation.',
 
         // Domain-specific sample data
         'domain.marketing.name': 'Marketing Campaign Planning Hub',
@@ -343,15 +343,15 @@ Use consultative selling approaches and help build long-term customer relationsh
     portuguese: {
         'page.title': 'Construtor de Agentes com IA',
         'page.subtitle': 'Descreva seu agente e eu te ajudarei a construí-lo passo a passo',
-        'page.powered': 'Desenvolvido por Claude Code AI • Modelo PM Agent Squad Master',
+        'page.powered': 'Desenvolvido por TD Agent Foundry • Modelo PM Agent Squad Master',
         'api.settings': 'Configurações da API',
 
         'assistant.title': 'Assistente Agent Foundry',
         'assistant.subtitle': 'Seu assistente de construção de agentes',
         'assistant.welcome': "👋 Olá! Sou seu Assistente Agent Foundry. Vou ajudá-lo a construir um Agente AI Foundry personalizado.",
         'assistant.start': "<strong>Vamos começar:</strong> Que tipo de agente você quer construir? Descreva o que ele deve fazer.",
-        'assistant.connected': '🟢 Conectado ao Claude Code CLI!',
-        'assistant.connection.detail': 'Usando conexão local na porta 3001. Todas as respostas vêm do Claude AI através da sua instalação do Claude Code.',
+        'assistant.connected': '🟢 Conectado ao TD LLM API!',
+        'assistant.connection.detail': 'Usando conexão local na porta 3001. Todas as respostas vêm do TD AI através da sua instalação do TD Agent Foundry.',
         'button.ask': 'Perguntar ao Assistente',
         'button.stop': '⏹️ Parar Resposta',
         'button.generate': '✨ Gerar Agente Automaticamente',
@@ -369,12 +369,12 @@ Use consultative selling approaches and help build long-term customer relationsh
         'step.deploy': 'Implantar',
 
         'step0.title': '🎯 Passo 0: Descreva Seu Agente',
-        'step0.info': '<strong>Construção com IA:</strong> Diga ao Claude o que seu agente precisa fazer, e ele irá gerar automaticamente bases de conhecimento, configuração e arquivos de implantação para você.',
+        'step0.info': '<strong>Construção com IA:</strong> Diga ao TD Agent Foundry o que seu agente precisa fazer, e ele irá gerar automaticamente bases de conhecimento, configuração e arquivos de implantação para você.',
         'step0.purpose': 'Qual é o propósito do seu agente?',
         'step0.tone': 'Que tom seu agente deve ter?',
         'step0.audience': 'Quem usará este agente?',
         'step0.hint': 'Seja específico! Inclua o que o agente deve fazer, quem o usará e qual conhecimento ele precisa.',
-        'step0.tip': '<strong>💡 Dica:</strong> Quanto mais detalhes você fornecer, melhor o Claude pode gerar a configuração do seu agente. Inclua exemplos específicos de perguntas que os usuários podem fazer ou tarefas com as quais precisam de ajuda.',
+        'step0.tip': '<strong>💡 Dica:</strong> Quanto mais detalhes você fornecer, melhor a IA pode gerar a configuração do seu agente. Inclua exemplos específicos de perguntas que os usuários podem fazer ou tarefas com as quais precisam de ajuda.',
 
         'tone.professional': 'Profissional e Formal',
         'tone.friendly': 'Amigável e Conversacional',
@@ -383,7 +383,7 @@ Use consultative selling approaches and help build long-term customer relationsh
         'tone.enthusiastic': 'Entusiasmado e Energético',
 
         'step1.title': '📚 Passo 1: Revisar Bases de Conhecimento',
-        'step1.info': '<strong>✨ Gerado por IA:</strong> Com base na sua descrição, o Claude criou essas bases de conhecimento para seu agente. Revise e edite conforme necessário.',
+        'step1.info': '<strong>✨ Gerado por IA:</strong> Com base na sua descrição, TD Agent Foundry criou essas bases de conhecimento para seu agente. Revise e edite conforme necessário.',
         'step1.empty': 'Complete o Passo 0 para gerar bases de conhecimento',
         'step1.kb.title': 'Base de Conhecimento',
         'step1.kb.content': 'Conteúdo',
@@ -393,13 +393,13 @@ Use consultative selling approaches and help build long-term customer relationsh
         'button.expand': 'Expandir',
 
         'step2.title': '⚙️ Passo 2: Revisar Configuração do Projeto',
-        'step2.info': '<strong>✨ Gerado por IA:</strong> O Claude configurou as definições do seu projeto. Revise e modifique se necessário.',
+        'step2.info': '<strong>✨ Gerado por IA:</strong> O TD Agent Foundry configurou as definições do seu projeto. Revise e modifique se necessário.',
         'step2.next': '<strong>📍 Próximo Passo:</strong> Após completar este assistente, abra <a href="https://console.treasuredata.com/app/agents" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">Treasure Data → AI Agent Foundry</a> para implantar seu agente.',
         'step2.name': 'Nome do Projeto',
         'step2.description': 'Descrição do Projeto',
 
         'step3.title': '🤖 Passo 3: Revisar Configuração do Agente',
-        'step3.info': '<strong>✨ Gerado por IA:</strong> O Claude selecionou configurações ideais para seu agente. Personalize se necessário.',
+        'step3.info': '<strong>✨ Gerado por IA:</strong> O TD Agent Foundry selecionou configurações ideais para seu agente. Personalize se necessário.',
         'step3.name': 'Nome de Exibição do Agente',
         'step3.model': 'Modelo de IA',
         'step3.temperature': 'Temperatura:',
@@ -455,9 +455,9 @@ Use consultative selling approaches and help build long-term customer relationsh
         'chat.placeholder': 'Exemplo: Quero construir um agente de planejamento de campanhas que ajuda profissionais de marketing a criar campanhas abrangentes em múltiplos canais...',
         'example.text': 'Exemplo: Quero construir um agente de planejamento de campanhas que ajuda profissionais de marketing...',
         'audience.placeholder': 'Exemplo: Funcionários da empresa, clientes, membros da equipe interna...',
-        'connected.status': '🟢 Conectado ao Claude Code CLI! Usando conexão local na porta 3001. Todas as respostas vêm do Claude AI através da sua instalação do Claude Code.',
+        'connected.status': '🟢 Conectado ao TD LLM API! Usando conexão local na porta 3001. Todas as respostas vêm do TD AI através da sua instalação do TD Agent Foundry.',
         'quick.examples': 'Exemplos Rápidos:',
-        'tip.text': '💡 Dica: Quanto mais detalhes você fornecer, melhor o Claude pode gerar a configuração do seu agente. Inclua exemplos específicos de perguntas que os usuários podem fazer ou tarefas com as quais precisam de ajuda.',
+        'tip.text': '💡 Dica: Quanto mais detalhes você fornecer, melhor a IA pode gerar a configuração do seu agente. Inclua exemplos específicos de perguntas que os usuários podem fazer ou tarefas com as quais precisam de ajuda.',
 
         // Success messages
         'success.generated': 'Agente gerado com sucesso!',
@@ -472,8 +472,8 @@ Use consultative selling approaches and help build long-term customer relationsh
         'sidebar.step2.msg': '🔧 Agora vamos configurar seu projeto. Pré-preenchi os detalhes com base na sua descrição.',
         'sidebar.step3.msg': '🤖 Quase lá! Revise as configurações do agente. Otimizei o modelo e a temperatura para seu caso de uso.',
         'sidebar.step4.msg': '🎉 Excelente! Seu agente está pronto para implantar. Baixe os arquivos e siga o guia de implantação do Agent Foundry.',
-        'sidebar.generating': '✨ Pedindo ao Claude AI para gerar a configuração do seu agente...',
-        'sidebar.connected': '🟢 Conectado ao Claude Code CLI! Usando conexão local na porta 3001. Todas as respostas vêm do Claude AI através da sua instalação do Claude Code.',
+        'sidebar.generating': '✨ Pedindo ao TD AI para gerar a configuração do seu agente...',
+        'sidebar.connected': '🟢 Conectado ao TD LLM API! Usando conexão local na porta 3001. Todas as respostas vêm do TD AI através da sua instalação do TD Agent Foundry.',
 
         // Domain-specific sample data
         'domain.marketing.name': 'Hub de Planejamento de Campanhas de Marketing',
@@ -586,15 +586,15 @@ Sempre priorize relacionamentos de longo prazo com clientes em vez de vitórias 
     spanish: {
         'page.title': 'Constructor de Agentes con IA',
         'page.subtitle': 'Describe tu agente y te ayudaré a construirlo paso a paso',
-        'page.powered': 'Desarrollado por Claude Code AI • Plantilla PM Agent Squad Master',
+        'page.powered': 'Desarrollado por TD Agent Foundry • Plantilla PM Agent Squad Master',
         'api.settings': 'Configuración de API',
 
         'assistant.title': 'Asistente Agent Foundry',
         'assistant.subtitle': 'Tu asistente de construcción de agentes',
         'assistant.welcome': "👋 ¡Hola! Soy tu Asistente Agent Foundry. Te ayudaré a construir un Agente AI Foundry personalizado.",
         'assistant.start': "<strong>Empecemos:</strong> ¿Qué tipo de agente quieres construir? Describe lo que debe hacer.",
-        'assistant.connected': '🟢 ¡Conectado a Claude Code CLI!',
-        'assistant.connection.detail': 'Usando conexión local en el puerto 3001. Todas las respuestas provienen de Claude AI a través de tu instalación de Claude Code.',
+        'assistant.connected': '🟢 ¡Conectado a TD LLM API!',
+        'assistant.connection.detail': 'Usando conexión local en el puerto 3001. Todas las respuestas provienen de TD AI a través de tu instalación de TD Agent Foundry.',
         'button.ask': 'Preguntar al Asistente',
         'button.stop': '⏹️ Detener Respuesta',
         'button.generate': '✨ Generar Agente Automáticamente',
@@ -612,12 +612,12 @@ Sempre priorize relacionamentos de longo prazo com clientes em vez de vitórias 
         'step.deploy': 'Desplegar',
 
         'step0.title': '🎯 Paso 0: Describe Tu Agente',
-        'step0.info': '<strong>Construcción con IA:</strong> Dile a Claude lo que tu agente necesita hacer, y generará automáticamente bases de conocimiento, configuración y archivos de despliegue para ti.',
+        'step0.info': '<strong>Construcción con IA:</strong> Dile a TD Agent Foundry lo que tu agente necesita hacer, y generará automáticamente bases de conocimiento, configuración y archivos de despliegue para ti.',
         'step0.purpose': '¿Cuál es el propósito de tu agente?',
         'step0.tone': '¿Qué tono debe tener tu agente?',
         'step0.audience': '¿Quién usará este agente?',
         'step0.hint': '¡Sé específico! Incluye qué debe hacer el agente, quién lo usará y qué conocimiento necesita.',
-        'step0.tip': '<strong>💡 Consejo:</strong> Cuantos más detalles proporciones, mejor podrá Claude generar la configuración de tu agente. Incluye ejemplos específicos de preguntas que los usuarios puedan hacer o tareas con las que necesiten ayuda.',
+        'step0.tip': '<strong>💡 Consejo:</strong> Cuantos más detalles proporciones, mejor podrá la IA generar la configuración de tu agente. Incluye ejemplos específicos de preguntas que los usuarios puedan hacer o tareas con las que necesiten ayuda.',
 
         'tone.professional': 'Profesional y Formal',
         'tone.friendly': 'Amigable y Conversacional',
@@ -626,7 +626,7 @@ Sempre priorize relacionamentos de longo prazo com clientes em vez de vitórias 
         'tone.enthusiastic': 'Entusiasta y Enérgico',
 
         'step1.title': '📚 Paso 1: Revisar Bases de Conocimiento',
-        'step1.info': '<strong>✨ Generado por IA:</strong> Basado en tu descripción, Claude creó estas bases de conocimiento para tu agente. Revisa y edita según sea necesario.',
+        'step1.info': '<strong>✨ Generado por IA:</strong> Basado en tu descripción, TD Agent Foundry creó estas bases de conocimiento para tu agente. Revisa y edita según sea necesario.',
         'step1.empty': 'Completa el Paso 0 para generar bases de conocimiento',
         'step1.kb.title': 'Base de Conocimiento',
         'step1.kb.content': 'Contenido',
@@ -636,13 +636,13 @@ Sempre priorize relacionamentos de longo prazo com clientes em vez de vitórias 
         'button.expand': 'Expandir',
 
         'step2.title': '⚙️ Paso 2: Revisar Configuración del Proyecto',
-        'step2.info': '<strong>✨ Generado por IA:</strong> Claude configuró las definiciones de tu proyecto. Revisa y modifica si es necesario.',
+        'step2.info': '<strong>✨ Generado por IA:</strong> TD Agent Foundry configuró las definiciones de tu proyecto. Revisa y modifica si es necesario.',
         'step2.next': '<strong>📍 Siguiente Paso:</strong> Después de completar este asistente, abre <a href="https://console.treasuredata.com/app/agents" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">Treasure Data → AI Agent Foundry</a> para desplegar tu agente.',
         'step2.name': 'Nombre del Proyecto',
         'step2.description': 'Descripción del Proyecto',
 
         'step3.title': '🤖 Paso 3: Revisar Configuración del Agente',
-        'step3.info': '<strong>✨ Generado por IA:</strong> Claude seleccionó configuraciones ideales para tu agente. Personaliza si es necesario.',
+        'step3.info': '<strong>✨ Generado por IA:</strong> TD Agent Foundry seleccionó configuraciones ideales para tu agente. Personaliza si es necesario.',
         'step3.name': 'Nombre para Mostrar del Agente',
         'step3.model': 'Modelo de IA',
         'step3.temperature': 'Temperatura:',
@@ -698,9 +698,9 @@ Sempre priorize relacionamentos de longo prazo com clientes em vez de vitórias 
         'chat.placeholder': 'Ejemplo: Quiero construir un agente de planificación de campañas que ayude a los profesionales de marketing a crear campañas integrales en múltiples canales...',
         'example.text': 'Ejemplo: Quiero construir un agente de planificación de campañas que ayude a los profesionales de marketing...',
         'audience.placeholder': 'Ejemplo: Empleados de la empresa, clientes, miembros internos del equipo...',
-        'connected.status': '🟢 ¡Conectado a Claude Code CLI! Usando conexión local en el puerto 3001. Todas las respuestas provienen de Claude AI a través de tu instalación de Claude Code.',
+        'connected.status': '🟢 ¡Conectado a TD LLM API! Usando conexión local en el puerto 3001. Todas las respuestas provienen de TD AI a través de tu instalación de TD Agent Foundry.',
         'quick.examples': 'Ejemplos Rápidos:',
-        'tip.text': '💡 Consejo: Cuantos más detalles proporciones, mejor podrá Claude generar la configuración de tu agente. Incluye ejemplos específicos de preguntas que los usuarios puedan hacer o tareas con las que necesiten ayuda.',
+        'tip.text': '💡 Consejo: Cuantos más detalles proporciones, mejor podrá la IA generar la configuración de tu agente. Incluye ejemplos específicos de preguntas que los usuarios puedan hacer o tareas con las que necesiten ayuda.',
 
         // Success messages
         'success.generated': '¡Agente generado con éxito!',
@@ -715,8 +715,8 @@ Sempre priorize relacionamentos de longo prazo com clientes em vez de vitórias 
         'sidebar.step2.msg': '🔧 Ahora configuremos tu proyecto. He pre-rellenado los detalles basándome en tu descripción.',
         'sidebar.step3.msg': '🤖 ¡Casi listo! Revisa la configuración del agente. He optimizado el modelo y la temperatura para tu caso de uso.',
         'sidebar.step4.msg': '🎉 ¡Excelente! Tu agente está listo para desplegar. Descarga los archivos y sigue la guía de despliegue de Agent Foundry.',
-        'sidebar.generating': '✨ Pidiendo a Claude AI que genere la configuración de tu agente...',
-        'sidebar.connected': '🟢 ¡Conectado a Claude Code CLI! Usando conexión local en el puerto 3001. Todas las respuestas provienen de Claude AI a través de tu instalación de Claude Code.',
+        'sidebar.generating': '✨ Pidiendo a TD AI que genere la configuración de tu agente...',
+        'sidebar.connected': '🟢 ¡Conectado a TD LLM API! Usando conexión local en el puerto 3001. Todas las respuestas provienen de TD AI a través de tu instalación de TD Agent Foundry.',
 
         // Domain-specific sample data
         'domain.marketing.name': 'Centro de Planificación de Campañas de Marketing',
@@ -830,7 +830,7 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
         // Header
         'page.title': 'AI搭載エージェントビルダー',
         'page.subtitle': 'エージェントを説明すれば、ステップバイステップで構築をサポートします',
-        'page.powered': 'Claude Code AI • PM Agent Squad Masterテンプレート',
+        'page.powered': 'TD Agent Foundry • PM Agent Squad Masterテンプレート',
         'api.settings': 'API設定',
 
         // Assistant Panel
@@ -838,8 +838,8 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
         'assistant.subtitle': 'エージェント構築アシスタント',
         'assistant.welcome': '👋 こんにちは！Agent Foundryアシスタントです。カスタムAI Foundryエージェントの構築をお手伝いします。',
         'assistant.start': '<strong>始めましょう：</strong>どのようなエージェントを構築したいですか？その機能を説明してください。',
-        'assistant.connected': '🟢 Claude Code CLIに接続しました！',
-        'assistant.connection.detail': 'ポート3001でローカル接続を使用しています。すべての応答はClaude Codeインストール経由でClaude AIから提供されます。',
+        'assistant.connected': '🟢 TD LLM APIに接続しました！',
+        'assistant.connection.detail': 'ポート3001でローカル接続を使用しています。すべての応答はTD Agent Foundryインストール経由でTD AIから提供されます。',
         'button.ask': 'アシスタントに質問',
         'button.stop': '⏹️ 応答を停止',
         'button.generate': '✨ エージェントを自動生成',
@@ -859,12 +859,12 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
 
         // Step 0
         'step0.title': '🎯 ステップ0：エージェントを説明',
-        'step0.info': '<strong>AI搭載構築：</strong>Claudeにエージェントが必要とすることを伝えれば、ナレッジベース、設定、デプロイメントファイルを自動生成します。',
+        'step0.info': '<strong>AI搭載構築：</strong>TD Agent Foundryにエージェントが必要とすることを伝えれば、ナレッジベース、設定、デプロイメントファイルを自動生成します。',
         'step0.purpose': 'エージェントの目的は何ですか？',
         'step0.tone': 'エージェントのトーンは？',
         'step0.audience': '誰がこのエージェントを使用しますか？',
         'step0.hint': '具体的に記述してください！エージェントが何をすべきか、誰が使用するか、どのような知識が必要かを含めてください。',
-        'step0.tip': '<strong>💡 ヒント：</strong>詳細を提供するほど、Claudeはより良いエージェント設定を生成できます。ユーザーが尋ねる可能性のある質問や必要なタスクの具体例を含めてください。',
+        'step0.tip': '<strong>💡 ヒント：</strong>詳細を提供するほど、AIはより良いエージェント設定を生成できます。ユーザーが尋ねる可能性のある質問や必要なタスクの具体例を含めてください。',
 
         // Tone options
         'tone.professional': 'プロフェッショナル＆フォーマル',
@@ -875,7 +875,7 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
 
         // Step 1
         'step1.title': '📚 ステップ1：ナレッジベースを確認',
-        'step1.info': '<strong>✨ AI生成：</strong>あなたの説明に基づいて、Claudeがエージェント用のナレッジベースを作成しました。必要に応じて確認・編集してください。',
+        'step1.info': '<strong>✨ AI生成：</strong>あなたの説明に基づいて、TD Agent Foundryがエージェント用のナレッジベースを作成しました。必要に応じて確認・編集してください。',
         'step1.empty': 'ステップ0を完了してナレッジベースを生成',
         'step1.kb.title': 'ナレッジベース',
         'step1.kb.content': 'コンテンツ',
@@ -886,14 +886,14 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
 
         // Step 2
         'step2.title': '⚙️ ステップ2：プロジェクト設定を確認',
-        'step2.info': '<strong>✨ AI生成：</strong>Claudeがプロジェクト設定を構成しました。必要に応じて確認・変更してください。',
+        'step2.info': '<strong>✨ AI生成：</strong>TD Agent Foundryがプロジェクト設定を構成しました。必要に応じて確認・変更してください。',
         'step2.next': '<strong>📍 次のステップ：</strong>このウィザードを完了したら、<a href="https://console.treasuredata.com/app/agents" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">Treasure Data → AI Agent Foundry</a>を開いてエージェントをデプロイしてください。',
         'step2.name': 'プロジェクト名',
         'step2.description': 'プロジェクト説明',
 
         // Step 3
         'step3.title': '🤖 ステップ3：エージェント設定を確認',
-        'step3.info': '<strong>✨ AI生成：</strong>Claudeがエージェントの最適な設定を選択しました。必要に応じてカスタマイズしてください。',
+        'step3.info': '<strong>✨ AI生成：</strong>TD Agent Foundryがエージェントの最適な設定を選択しました。必要に応じてカスタマイズしてください。',
         'step3.name': 'エージェント表示名',
         'step3.model': 'AIモデル',
         'step3.temperature': '温度：',
@@ -952,9 +952,9 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
         'chat.placeholder': '例：マルチチャネルでの包括的なマーケティングキャンペーンの作成をマーケターに支援するキャンペーン計画エージェントを構築したいです...',
         'example.text': '例：マーケターが複数のチャネルで包括的なマーケティングキャンペーンを作成するのを支援するキャンペーン計画エージェントを構築したいです...',
         'audience.placeholder': '例：社員、顧客、社内チームメンバー...',
-        'connected.status': '🟢 Claude Code CLIに接続しました！ポート3001でローカル接続を使用しています。すべての応答はClaude Codeインストール経由でClaude AIから提供されます。',
+        'connected.status': '🟢 TD LLM APIに接続しました！ポート3001でローカル接続を使用しています。すべての応答はTD Agent Foundryインストール経由でTD AIから提供されます。',
         'quick.examples': 'クイック例：',
-        'tip.text': '💡 ヒント：詳細を提供するほど、Claudeはより良いエージェント設定を生成できます。ユーザーが尋ねる可能性のある質問や必要なタスクの具体例を含めてください。',
+        'tip.text': '💡 ヒント：詳細を提供するほど、AIはより良いエージェント設定を生成できます。ユーザーが尋ねる可能性のある質問や必要なタスクの具体例を含めてください。',
 
         // Success messages
         'success.generated': 'エージェントが正常に生成されました！',
@@ -969,8 +969,8 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
         'sidebar.step2.msg': '🔧 次はプロジェクトを設定しましょう。説明に基づいて詳細を事前入力しました。',
         'sidebar.step3.msg': '🤖 もう少しです！エージェント設定を確認してください。ユースケースに合わせてモデルと温度を最適化しました。',
         'sidebar.step4.msg': '🎉 完璧です！エージェントのデプロイ準備が整いました。ファイルをダウンロードしてAgent Foundryデプロイメントガイドに従ってください。',
-        'sidebar.generating': '✨ Claude AIにエージェント設定の生成を依頼しています...',
-        'sidebar.connected': '🟢 Claude Code CLIに接続しました！ポート3001でローカル接続を使用しています。すべての応答はClaude Codeインストール経由でClaude AIから提供されます。',
+        'sidebar.generating': '✨ TD AIにエージェント設定の生成を依頼しています...',
+        'sidebar.connected': '🟢 TD LLM APIに接続しました！ポート3001でローカル接続を使用しています。すべての応答はTD Agent Foundryインストール経由でTD AIから提供されます。',
 
         // Domain-specific sample data
         'domain.marketing.name': 'マーケティングキャンペーン計画ハブ',
@@ -1083,15 +1083,15 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
     french: {
         'page.title': 'Constructeur d\'Agents IA',
         'page.subtitle': 'Décrivez votre agent et je vous aiderai à le construire étape par étape',
-        'page.powered': 'Propulsé par Claude Code AI • Modèle PM Agent Squad Master',
+        'page.powered': 'Propulsé par TD Agent Foundry • Modèle PM Agent Squad Master',
         'api.settings': 'Paramètres API',
 
         'assistant.title': 'Assistant Agent Foundry',
         'assistant.subtitle': 'Votre assistant de création d\'agents',
         'assistant.welcome': "👋 Bonjour ! Je suis votre Assistant Agent Foundry. Je vais vous aider à créer un Agent AI Foundry personnalisé.",
         'assistant.start': "<strong>Commençons :</strong> Quel type d'agent souhaitez-vous créer ? Décrivez ce qu'il doit faire.",
-        'assistant.connected': '🟢 Connecté à Claude Code CLI !',
-        'assistant.connection.detail': 'Utilisation de la connexion locale sur le port 3001. Toutes les réponses proviennent de Claude AI via votre installation Claude Code.',
+        'assistant.connected': '🟢 Connecté à TD LLM API !',
+        'assistant.connection.detail': 'Utilisation de la connexion locale sur le port 3001. Toutes les réponses proviennent de TD AI via votre installation TD Agent Foundry.',
         'button.ask': 'Demander à l\'Assistant',
         'button.stop': '⏹️ Arrêter la Réponse',
         'button.generate': '✨ Générer l\'Agent Automatiquement',
@@ -1109,12 +1109,12 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
         'step.deploy': 'Déployer',
 
         'step0.title': '🎯 Étape 0 : Décrivez Votre Agent',
-        'step0.info': '<strong>Construction IA :</strong> Dites à Claude ce que votre agent doit faire, et il générera automatiquement des bases de connaissances, une configuration et des fichiers de déploiement pour vous.',
+        'step0.info': '<strong>Construction IA :</strong> Dites à TD Agent Foundry ce que votre agent doit faire, et il générera automatiquement des bases de connaissances, une configuration et des fichiers de déploiement pour vous.',
         'step0.purpose': 'Quel est l\'objectif de votre agent ?',
         'step0.tone': 'Quel ton votre agent doit-il avoir ?',
         'step0.audience': 'Qui utilisera cet agent ?',
         'step0.hint': 'Soyez précis ! Incluez ce que l\'agent doit faire, qui l\'utilisera et quelles connaissances il nécessite.',
-        'step0.tip': '<strong>💡 Astuce :</strong> Plus vous fournissez de détails, mieux Claude peut générer la configuration de votre agent. Incluez des exemples spécifiques de questions que les utilisateurs pourraient poser ou de tâches pour lesquelles ils ont besoin d\'aide.',
+        'step0.tip': '<strong>💡 Astuce :</strong> Plus vous fournissez de détails, mieux l'IA peut générer la configuration de votre agent. Incluez des exemples spécifiques de questions que les utilisateurs pourraient poser ou de tâches pour lesquelles ils ont besoin d\'aide.',
 
         'tone.professional': 'Professionnel et Formel',
         'tone.friendly': 'Amical et Conversationnel',
@@ -1123,7 +1123,7 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
         'tone.enthusiastic': 'Enthousiaste et Énergique',
 
         'step1.title': '📚 Étape 1 : Examiner les Bases de Connaissances',
-        'step1.info': '<strong>✨ Généré par IA :</strong> Sur la base de votre description, Claude a créé ces bases de connaissances pour votre agent. Examinez et modifiez si nécessaire.',
+        'step1.info': '<strong>✨ Généré par IA :</strong> Sur la base de votre description, TD Agent Foundry a créé ces bases de connaissances pour votre agent. Examinez et modifiez si nécessaire.',
         'step1.empty': 'Complétez l\'Étape 0 pour générer des bases de connaissances',
         'step1.kb.title': 'Base de Connaissances',
         'step1.kb.content': 'Contenu',
@@ -1133,13 +1133,13 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
         'button.expand': 'Développer',
 
         'step2.title': '⚙️ Étape 2 : Examiner la Configuration du Projet',
-        'step2.info': '<strong>✨ Généré par IA :</strong> Claude a configuré les paramètres de votre projet. Examinez et modifiez si nécessaire.',
+        'step2.info': '<strong>✨ Généré par IA :</strong> TD Agent Foundry a configuré les paramètres de votre projet. Examinez et modifiez si nécessaire.',
         'step2.next': '<strong>📍 Prochaine Étape :</strong> Après avoir terminé cet assistant, ouvrez <a href="https://console.treasuredata.com/app/agents" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">Treasure Data → AI Agent Foundry</a> pour déployer votre agent.',
         'step2.name': 'Nom du Projet',
         'step2.description': 'Description du Projet',
 
         'step3.title': '🤖 Étape 3 : Examiner la Configuration de l\'Agent',
-        'step3.info': '<strong>✨ Généré par IA :</strong> Claude a sélectionné des paramètres idéaux pour votre agent. Personnalisez si nécessaire.',
+        'step3.info': '<strong>✨ Généré par IA :</strong> TD Agent Foundry a sélectionné des paramètres idéaux pour votre agent. Personnalisez si nécessaire.',
         'step3.name': 'Nom d\'Affichage de l\'Agent',
         'step3.model': 'Modèle IA',
         'step3.temperature': 'Température :',
@@ -1195,9 +1195,9 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
         'chat.placeholder': 'Exemple : Je veux créer un agent de planification de campagnes qui aide les professionnels du marketing à créer des campagnes complètes sur plusieurs canaux...',
         'example.text': 'Exemple : Je veux créer un agent de planification de campagnes qui aide les professionnels du marketing...',
         'audience.placeholder': 'Exemple : Employés de l\'entreprise, clients, membres internes de l\'équipe...',
-        'connected.status': '🟢 Connecté à Claude Code CLI ! Utilisation de la connexion locale sur le port 3001. Toutes les réponses proviennent de Claude AI via votre installation Claude Code.',
+        'connected.status': '🟢 Connecté à TD LLM API ! Utilisation de la connexion locale sur le port 3001. Toutes les réponses proviennent de TD AI via votre installation TD Agent Foundry.',
         'quick.examples': 'Exemples Rapides :',
-        'tip.text': '💡 Astuce : Plus vous fournissez de détails, mieux Claude peut générer la configuration de votre agent. Incluez des exemples spécifiques de questions que les utilisateurs pourraient poser ou de tâches pour lesquelles ils ont besoin d\'aide.',
+        'tip.text': '💡 Astuce : Plus vous fournissez de détails, mieux l'IA peut générer la configuration de votre agent. Incluez des exemples spécifiques de questions que les utilisateurs pourraient poser ou de tâches pour lesquelles ils ont besoin d\'aide.',
 
         // Success messages
         'success.generated': 'Agent généré avec succès !',
@@ -1212,8 +1212,8 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
         'sidebar.step2.msg': '🔧 Maintenant, configurons votre projet. J\'ai pré-rempli les détails en fonction de votre description.',
         'sidebar.step3.msg': '🤖 Presque terminé ! Examinez les paramètres de l\'agent. J\'ai optimisé le modèle et la température pour votre cas d\'utilisation.',
         'sidebar.step4.msg': '🎉 Excellent ! Votre agent est prêt à être déployé. Téléchargez les fichiers et suivez le guide de déploiement Agent Foundry.',
-        'sidebar.generating': '✨ Demande à Claude AI de générer la configuration de votre agent...',
-        'sidebar.connected': '🟢 Connecté à Claude Code CLI ! Utilisation de la connexion locale sur le port 3001. Toutes les réponses proviennent de Claude AI via votre installation Claude Code.',
+        'sidebar.generating': '✨ Demande à TD AI de générer la configuration de votre agent...',
+        'sidebar.connected': '🟢 Connecté à TD LLM API ! Utilisation de la connexion locale sur le port 3001. Toutes les réponses proviennent de TD AI via votre installation TD Agent Foundry.',
 
         // Domain-specific sample data
         'domain.marketing.name': 'Centre de Planification de Campagnes Marketing',
@@ -1326,15 +1326,15 @@ Toujours prioriser les relations client à long terme plutôt que les victoires 
     italian: {
         'page.title': 'Costruttore di Agenti IA',
         'page.subtitle': 'Descrivi il tuo agente e ti aiuterò a costruirlo passo dopo passo',
-        'page.powered': 'Realizzato da Claude Code AI • Modello PM Agent Squad Master',
+        'page.powered': 'Realizzato da TD Agent Foundry • Modello PM Agent Squad Master',
         'api.settings': 'Impostazioni API',
 
         'assistant.title': 'Assistente Agent Foundry',
         'assistant.subtitle': 'Il tuo assistente per la creazione di agenti',
         'assistant.welcome': "👋 Ciao! Sono il tuo Assistente Agent Foundry. Ti aiuterò a creare un Agente AI Foundry personalizzato.",
         'assistant.start': "<strong>Iniziamo:</strong> Che tipo di agente vuoi creare? Descrivi cosa dovrebbe fare.",
-        'assistant.connected': '🟢 Connesso a Claude Code CLI!',
-        'assistant.connection.detail': 'Utilizzo della connessione locale sulla porta 3001. Tutte le risposte provengono da Claude AI tramite la tua installazione di Claude Code.',
+        'assistant.connected': '🟢 Connesso a TD LLM API!',
+        'assistant.connection.detail': 'Utilizzo della connessione locale sulla porta 3001. Tutte le risposte provengono da TD AI tramite la tua installazione di TD Agent Foundry.',
         'button.ask': 'Chiedi all\'Assistente',
         'button.stop': '⏹️ Ferma Risposta',
         'button.generate': '✨ Genera Agente Automaticamente',
@@ -1352,12 +1352,12 @@ Toujours prioriser les relations client à long terme plutôt que les victoires 
         'step.deploy': 'Distribuisci',
 
         'step0.title': '🎯 Passo 0: Descrivi il Tuo Agente',
-        'step0.info': '<strong>Costruzione IA:</strong> Dì a Claude cosa deve fare il tuo agente e genererà automaticamente basi di conoscenza, configurazione e file di distribuzione per te.',
+        'step0.info': '<strong>Costruzione IA:</strong> Dì a TD Agent Foundry cosa deve fare il tuo agente e genererà automaticamente basi di conoscenza, configurazione e file di distribuzione per te.',
         'step0.purpose': 'Qual è lo scopo del tuo agente?',
         'step0.tone': 'Che tono dovrebbe avere il tuo agente?',
         'step0.audience': 'Chi userà questo agente?',
         'step0.hint': 'Sii specifico! Includi cosa dovrebbe fare l\'agente, chi lo userà e quale conoscenza necessita.',
-        'step0.tip': '<strong>💡 Suggerimento:</strong> Più dettagli fornisci, meglio Claude può generare la configurazione del tuo agente. Includi esempi specifici di domande che gli utenti potrebbero fare o compiti per cui hanno bisogno di aiuto.',
+        'step0.tip': '<strong>💡 Suggerimento:</strong> Più dettagli fornisci, meglio l'IA può generare la configurazione del tuo agente. Includi esempi specifici di domande che gli utenti potrebbero fare o compiti per cui hanno bisogno di aiuto.',
 
         'tone.professional': 'Professionale e Formale',
         'tone.friendly': 'Amichevole e Colloquiale',
@@ -1366,7 +1366,7 @@ Toujours prioriser les relations client à long terme plutôt que les victoires 
         'tone.enthusiastic': 'Entusiasta ed Energico',
 
         'step1.title': '📚 Passo 1: Rivedi le Basi di Conoscenza',
-        'step1.info': '<strong>✨ Generato da IA:</strong> In base alla tua descrizione, Claude ha creato queste basi di conoscenza per il tuo agente. Rivedi e modifica se necessario.',
+        'step1.info': '<strong>✨ Generato da IA:</strong> In base alla tua descrizione, TD Agent Foundry ha creato queste basi di conoscenza per il tuo agente. Rivedi e modifica se necessario.',
         'step1.empty': 'Completa il Passo 0 per generare le basi di conoscenza',
         'step1.kb.title': 'Base di Conoscenza',
         'step1.kb.content': 'Contenuto',
@@ -1376,13 +1376,13 @@ Toujours prioriser les relations client à long terme plutôt que les victoires 
         'button.expand': 'Espandi',
 
         'step2.title': '⚙️ Passo 2: Rivedi la Configurazione del Progetto',
-        'step2.info': '<strong>✨ Generato da IA:</strong> Claude ha configurato le impostazioni del tuo progetto. Rivedi e modifica se necessario.',
+        'step2.info': '<strong>✨ Generato da IA:</strong> TD Agent Foundry ha configurato le impostazioni del tuo progetto. Rivedi e modifica se necessario.',
         'step2.next': '<strong>📍 Prossimo Passo:</strong> Dopo aver completato questo assistente, apri <a href="https://console.treasuredata.com/app/agents" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">Treasure Data → AI Agent Foundry</a> per distribuire il tuo agente.',
         'step2.name': 'Nome del Progetto',
         'step2.description': 'Descrizione del Progetto',
 
         'step3.title': '🤖 Passo 3: Rivedi la Configurazione dell\'Agente',
-        'step3.info': '<strong>✨ Generato da IA:</strong> Claude ha selezionato impostazioni ideali per il tuo agente. Personalizza se necessario.',
+        'step3.info': '<strong>✨ Generato da IA:</strong> TD Agent Foundry ha selezionato impostazioni ideali per il tuo agente. Personalizza se necessario.',
         'step3.name': 'Nome Visualizzato dell\'Agente',
         'step3.model': 'Modello IA',
         'step3.temperature': 'Temperatura:',
@@ -1438,9 +1438,9 @@ Toujours prioriser les relations client à long terme plutôt que les victoires 
         'chat.placeholder': 'Esempio: Voglio creare un agente di pianificazione campagne che aiuti i professionisti del marketing a creare campagne complete su più canali...',
         'example.text': 'Esempio: Voglio creare un agente di pianificazione campagne che aiuti i professionisti del marketing...',
         'audience.placeholder': 'Esempio: Dipendenti aziendali, clienti, membri interni del team...',
-        'connected.status': '🟢 Connesso a Claude Code CLI! Utilizzo connessione locale sulla porta 3001. Tutte le risposte provengono da Claude AI tramite la tua installazione di Claude Code.',
+        'connected.status': '🟢 Connesso a TD LLM API! Utilizzo connessione locale sulla porta 3001. Tutte le risposte provengono da TD AI tramite la tua installazione di TD Agent Foundry.',
         'quick.examples': 'Esempi Rapidi:',
-        'tip.text': '💡 Suggerimento: Più dettagli fornisci, meglio Claude può generare la configurazione del tuo agente. Includi esempi specifici di domande che gli utenti potrebbero fare o compiti per cui hanno bisogno di aiuto.',
+        'tip.text': '💡 Suggerimento: Più dettagli fornisci, meglio l'IA può generare la configurazione del tuo agente. Includi esempi specifici di domande che gli utenti potrebbero fare o compiti per cui hanno bisogno di aiuto.',
 
         // Success messages
         'success.generated': 'Agente generato con successo!',
@@ -1455,8 +1455,8 @@ Toujours prioriser les relations client à long terme plutôt que les victoires 
         'sidebar.step2.msg': '🔧 Ora configuriamo il tuo progetto. Ho precompilato i dettagli in base alla tua descrizione.',
         'sidebar.step3.msg': '🤖 Quasi fatto! Rivedi le impostazioni dell\'agente. Ho ottimizzato il modello e la temperatura per il tuo caso d\'uso.',
         'sidebar.step4.msg': '🎉 Eccellente! Il tuo agente è pronto per essere distribuito. Scarica i file e segui la guida di distribuzione Agent Foundry.',
-        'sidebar.generating': '✨ Sto chiedendo a Claude AI di generare la configurazione del tuo agente...',
-        'sidebar.connected': '🟢 Connesso a Claude Code CLI! Utilizzo connessione locale sulla porta 3001. Tutte le risposte provengono da Claude AI tramite la tua installazione di Claude Code.',
+        'sidebar.generating': '✨ Sto chiedendo a TD AI di generare la configurazione del tuo agente...',
+        'sidebar.connected': '🟢 Connesso a TD LLM API! Utilizzo connessione locale sulla porta 3001. Tutte le risposte provengono da TD AI tramite la tua installazione di TD Agent Foundry.',
 
         // Domain-specific sample data
         'domain.marketing.name': 'Centro di Pianificazione Campagne Marketing',
@@ -1569,15 +1569,15 @@ Dare sempre priorità alle relazioni clienti a lungo termine rispetto alle vitto
     german: {
         'page.title': 'KI-gestützter Agenten-Builder',
         'page.subtitle': 'Beschreiben Sie Ihren Agenten und ich helfe Ihnen, ihn Schritt für Schritt zu erstellen',
-        'page.powered': 'Entwickelt von Claude Code AI • PM Agent Squad Master Vorlage',
+        'page.powered': 'Entwickelt von TD Agent Foundry • PM Agent Squad Master Vorlage',
         'api.settings': 'API-Einstellungen',
 
         'assistant.title': 'Agent Foundry Assistent',
         'assistant.subtitle': 'Ihr Assistent für die Agentenerstellung',
         'assistant.welcome': "👋 Hallo! Ich bin Ihr Agent Foundry Assistent. Ich helfe Ihnen, einen benutzerdefinierten AI Foundry Agenten zu erstellen.",
         'assistant.start': "<strong>Lassen Sie uns beginnen:</strong> Welche Art von Agent möchten Sie erstellen? Beschreiben Sie, was er tun soll.",
-        'assistant.connected': '🟢 Mit Claude Code CLI verbunden!',
-        'assistant.connection.detail': 'Verwendung lokaler Verbindung auf Port 3001. Alle Antworten kommen von Claude AI über Ihre Claude Code Installation.',
+        'assistant.connected': '🟢 Mit TD LLM API verbunden!',
+        'assistant.connection.detail': 'Verwendung lokaler Verbindung auf Port 3001. Alle Antworten kommen von TD AI über Ihre TD Agent Foundry Installation.',
         'button.ask': 'Assistent fragen',
         'button.stop': '⏹️ Antwort stoppen',
         'button.generate': '✨ Agent automatisch generieren',
@@ -1595,12 +1595,12 @@ Dare sempre priorità alle relazioni clienti a lungo termine rispetto alle vitto
         'step.deploy': 'Bereitstellen',
 
         'step0.title': '🎯 Schritt 0: Beschreiben Sie Ihren Agenten',
-        'step0.info': '<strong>KI-Erstellung:</strong> Sagen Sie Claude, was Ihr Agent tun soll, und er wird automatisch Wissensbasen, Konfiguration und Bereitstellungsdateien für Sie generieren.',
+        'step0.info': '<strong>KI-Erstellung:</strong> Sagen Sie TD Agent Foundry, was Ihr Agent tun soll, und er wird automatisch Wissensbasen, Konfiguration und Bereitstellungsdateien für Sie generieren.',
         'step0.purpose': 'Was ist der Zweck Ihres Agenten?',
         'step0.tone': 'Welchen Ton soll Ihr Agent haben?',
         'step0.audience': 'Wer wird diesen Agenten verwenden?',
         'step0.hint': 'Seien Sie spezifisch! Geben Sie an, was der Agent tun soll, wer ihn verwenden wird und welches Wissen er benötigt.',
-        'step0.tip': '<strong>💡 Tipp:</strong> Je mehr Details Sie angeben, desto besser kann Claude die Konfiguration Ihres Agenten generieren. Fügen Sie spezifische Beispiele für Fragen hinzu, die Benutzer stellen könnten, oder Aufgaben, bei denen sie Hilfe benötigen.',
+        'step0.tip': '<strong>💡 Tipp:</strong> Je mehr Details Sie angeben, desto besser kann die KI die Konfiguration Ihres Agenten generieren. Fügen Sie spezifische Beispiele für Fragen hinzu, die Benutzer stellen könnten, oder Aufgaben, bei denen sie Hilfe benötigen.',
 
         'tone.professional': 'Professionell und Formell',
         'tone.friendly': 'Freundlich und Gesprächig',
@@ -1609,7 +1609,7 @@ Dare sempre priorità alle relazioni clienti a lungo termine rispetto alle vitto
         'tone.enthusiastic': 'Enthusiastisch und Energiegeladen',
 
         'step1.title': '📚 Schritt 1: Wissensbasen überprüfen',
-        'step1.info': '<strong>✨ KI-generiert:</strong> Basierend auf Ihrer Beschreibung hat Claude diese Wissensbasen für Ihren Agenten erstellt. Überprüfen und bearbeiten Sie sie bei Bedarf.',
+        'step1.info': '<strong>✨ KI-generiert:</strong> Basierend auf Ihrer Beschreibung hat TD Agent Foundry diese Wissensbasen für Ihren Agenten erstellt. Überprüfen und bearbeiten Sie sie bei Bedarf.',
         'step1.empty': 'Schließen Sie Schritt 0 ab, um Wissensbasen zu generieren',
         'step1.kb.title': 'Wissensbasis',
         'step1.kb.content': 'Inhalt',
@@ -1619,13 +1619,13 @@ Dare sempre priorità alle relazioni clienti a lungo termine rispetto alle vitto
         'button.expand': 'Erweitern',
 
         'step2.title': '⚙️ Schritt 2: Projektkonfiguration überprüfen',
-        'step2.info': '<strong>✨ KI-generiert:</strong> Claude hat Ihre Projekteinstellungen konfiguriert. Überprüfen und ändern Sie sie bei Bedarf.',
+        'step2.info': '<strong>✨ KI-generiert:</strong> TD Agent Foundry hat Ihre Projekteinstellungen konfiguriert. Überprüfen und ändern Sie sie bei Bedarf.',
         'step2.next': '<strong>📍 Nächster Schritt:</strong> Nachdem Sie diesen Assistenten abgeschlossen haben, öffnen Sie <a href="https://console.treasuredata.com/app/agents" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">Treasure Data → AI Agent Foundry</a>, um Ihren Agenten bereitzustellen.',
         'step2.name': 'Projektname',
         'step2.description': 'Projektbeschreibung',
 
         'step3.title': '🤖 Schritt 3: Agentenkonfiguration überprüfen',
-        'step3.info': '<strong>✨ KI-generiert:</strong> Claude hat ideale Einstellungen für Ihren Agenten ausgewählt. Passen Sie sie bei Bedarf an.',
+        'step3.info': '<strong>✨ KI-generiert:</strong> TD Agent Foundry hat ideale Einstellungen für Ihren Agenten ausgewählt. Passen Sie sie bei Bedarf an.',
         'step3.name': 'Agenten-Anzeigename',
         'step3.model': 'KI-Modell',
         'step3.temperature': 'Temperatur:',
@@ -1681,9 +1681,9 @@ Dare sempre priorità alle relazioni clienti a lungo termine rispetto alle vitto
         'chat.placeholder': 'Beispiel: Ich möchte einen Kampagnenplanungs-Agenten erstellen, der Marketingprofis dabei hilft, umfassende Kampagnen über mehrere Kanäle zu erstellen...',
         'example.text': 'Beispiel: Ich möchte einen Kampagnenplanungs-Agenten erstellen, der Marketingprofis hilft...',
         'audience.placeholder': 'Beispiel: Firmenmitarbeiter, Kunden, interne Teammitglieder...',
-        'connected.status': '🟢 Mit Claude Code CLI verbunden! Verwendung lokaler Verbindung auf Port 3001. Alle Antworten kommen von Claude AI über Ihre Claude Code Installation.',
+        'connected.status': '🟢 Mit TD LLM API verbunden! Verwendung lokaler Verbindung auf Port 3001. Alle Antworten kommen von TD AI über Ihre TD Agent Foundry Installation.',
         'quick.examples': 'Schnellbeispiele:',
-        'tip.text': '💡 Tipp: Je mehr Details Sie angeben, desto besser kann Claude die Konfiguration Ihres Agenten generieren. Fügen Sie spezifische Beispiele für Fragen hinzu, die Benutzer stellen könnten, oder Aufgaben, bei denen sie Hilfe benötigen.',
+        'tip.text': '💡 Tipp: Je mehr Details Sie angeben, desto besser kann die KI die Konfiguration Ihres Agenten generieren. Fügen Sie spezifische Beispiele für Fragen hinzu, die Benutzer stellen könnten, oder Aufgaben, bei denen sie Hilfe benötigen.',
 
         // Success messages
         'success.generated': 'Agent erfolgreich generiert!',
@@ -1698,8 +1698,8 @@ Dare sempre priorità alle relazioni clienti a lungo termine rispetto alle vitto
         'sidebar.step2.msg': '🔧 Jetzt konfigurieren wir Ihr Projekt. Ich habe die Details basierend auf Ihrer Beschreibung vorausgefüllt.',
         'sidebar.step3.msg': '🤖 Fast fertig! Überprüfen Sie die Agenteneinstellungen. Ich habe das Modell und die Temperatur für Ihren Anwendungsfall optimiert.',
         'sidebar.step4.msg': '🎉 Ausgezeichnet! Ihr Agent ist bereit zur Bereitstellung. Laden Sie die Dateien herunter und folgen Sie dem Agent Foundry Bereitstellungsleitfaden.',
-        'sidebar.generating': '✨ Bitte Claude AI, die Konfiguration Ihres Agenten zu generieren...',
-        'sidebar.connected': '🟢 Mit Claude Code CLI verbunden! Verwendung lokaler Verbindung auf Port 3001. Alle Antworten kommen von Claude AI über Ihre Claude Code Installation.',
+        'sidebar.generating': '✨ Bitte TD AI, die Konfiguration Ihres Agenten zu generieren...',
+        'sidebar.connected': '🟢 Mit TD LLM API verbunden! Verwendung lokaler Verbindung auf Port 3001. Alle Antworten kommen von TD AI über Ihre TD Agent Foundry Installation.',
 
         // Domain-specific sample data
         'domain.marketing.name': 'Marketing-Kampagnenplanungszentrum',
@@ -1812,15 +1812,15 @@ Immer langfristige Kundenbeziehungen über kurzfristige Erfolge priorisieren.`
     korean: {
         'page.title': 'AI 기반 에이전트 빌더',
         'page.subtitle': '에이전트를 설명하면 단계별로 구축을 도와드립니다',
-        'page.powered': 'Claude Code AI 제공 • PM Agent Squad Master 템플릿',
+        'page.powered': 'TD Agent Foundry 제공 • PM Agent Squad Master 템플릿',
         'api.settings': 'API 설정',
 
         'assistant.title': 'Agent Foundry 어시스턴트',
         'assistant.subtitle': '에이전트 생성 어시스턴트',
         'assistant.welcome': "👋 안녕하세요! Agent Foundry 어시스턴트입니다. 맞춤형 AI Foundry 에이전트 구축을 도와드리겠습니다.",
         'assistant.start': "<strong>시작하겠습니다:</strong> 어떤 유형의 에이전트를 만들고 싶으신가요? 무엇을 해야 하는지 설명해주세요.",
-        'assistant.connected': '🟢 Claude Code CLI에 연결되었습니다!',
-        'assistant.connection.detail': '포트 3001에서 로컬 연결을 사용합니다. 모든 응답은 Claude Code 설치를 통해 Claude AI에서 제공됩니다.',
+        'assistant.connected': '🟢 TD LLM API에 연결되었습니다!',
+        'assistant.connection.detail': '포트 3001에서 로컬 연결을 사용합니다. 모든 응답은 TD Agent Foundry 설치를 통해 TD AI에서 제공됩니다.',
         'button.ask': '어시스턴트에게 질문',
         'button.stop': '⏹️ 응답 중지',
         'button.generate': '✨ 에이전트 자동 생성',
@@ -1838,12 +1838,12 @@ Immer langfristige Kundenbeziehungen über kurzfristige Erfolge priorisieren.`
         'step.deploy': '배포',
 
         'step0.title': '🎯 단계 0: 에이전트 설명',
-        'step0.info': '<strong>AI 구축:</strong> Claude에게 에이전트가 해야 할 일을 알려주면 자동으로 지식 베이스, 구성 및 배포 파일을 생성합니다.',
+        'step0.info': '<strong>AI 구축:</strong> TD Agent Foundry에게 에이전트가 해야 할 일을 알려주면 자동으로 지식 베이스, 구성 및 배포 파일을 생성합니다.',
         'step0.purpose': '에이전트의 목적은 무엇인가요?',
         'step0.tone': '에이전트는 어떤 톤을 가져야 하나요?',
         'step0.audience': '누가 이 에이전트를 사용하나요?',
         'step0.hint': '구체적으로 작성하세요! 에이전트가 무엇을 해야 하는지, 누가 사용할지, 어떤 지식이 필요한지 포함하세요.',
-        'step0.tip': '<strong>💡 팁:</strong> 더 많은 세부 정보를 제공할수록 Claude가 에이전트 구성을 더 잘 생성할 수 있습니다. 사용자가 할 수 있는 구체적인 질문 예시나 도움이 필요한 작업을 포함하세요.',
+        'step0.tip': '<strong>💡 팁:</strong> 더 많은 세부 정보를 제공할수록 AI가 에이전트 구성을 더 잘 생성할 수 있습니다. 사용자가 할 수 있는 구체적인 질문 예시나 도움이 필요한 작업을 포함하세요.',
 
         'tone.professional': '전문적이고 격식 있는',
         'tone.friendly': '친근하고 대화적인',
@@ -1852,7 +1852,7 @@ Immer langfristige Kundenbeziehungen über kurzfristige Erfolge priorisieren.`
         'tone.enthusiastic': '열정적이고 활기찬',
 
         'step1.title': '📚 단계 1: 지식 베이스 검토',
-        'step1.info': '<strong>✨ AI 생성:</strong> 설명을 기반으로 Claude가 에이전트를 위한 지식 베이스를 생성했습니다. 필요에 따라 검토하고 편집하세요.',
+        'step1.info': '<strong>✨ AI 생성:</strong> 설명을 기반으로 AI가 에이전트를 위한 지식 베이스를 생성했습니다. 필요에 따라 검토하고 편집하세요.',
         'step1.empty': '지식 베이스를 생성하려면 단계 0을 완료하세요',
         'step1.kb.title': '지식 베이스',
         'step1.kb.content': '내용',
@@ -1862,13 +1862,13 @@ Immer langfristige Kundenbeziehungen über kurzfristige Erfolge priorisieren.`
         'button.expand': '확장',
 
         'step2.title': '⚙️ 단계 2: 프로젝트 구성 검토',
-        'step2.info': '<strong>✨ AI 생성:</strong> Claude가 프로젝트 설정을 구성했습니다. 필요에 따라 검토하고 수정하세요.',
+        'step2.info': '<strong>✨ AI 생성:</strong> AI가 프로젝트 설정을 구성했습니다. 필요에 따라 검토하고 수정하세요.',
         'step2.next': '<strong>📍 다음 단계:</strong> 이 마법사를 완료한 후 <a href="https://console.treasuredata.com/app/agents" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">Treasure Data → AI Agent Foundry</a>를 열어 에이전트를 배포하세요.',
         'step2.name': '프로젝트 이름',
         'step2.description': '프로젝트 설명',
 
         'step3.title': '🤖 단계 3: 에이전트 구성 검토',
-        'step3.info': '<strong>✨ AI 생성:</strong> Claude가 에이전트에 대한 이상적인 설정을 선택했습니다. 필요에 따라 사용자 지정하세요.',
+        'step3.info': '<strong>✨ AI 생성:</strong> AI가 에이전트에 대한 이상적인 설정을 선택했습니다. 필요에 따라 사용자 지정하세요.',
         'step3.name': '에이전트 표시 이름',
         'step3.model': 'AI 모델',
         'step3.temperature': '온도:',
@@ -1924,9 +1924,9 @@ Immer langfristige Kundenbeziehungen über kurzfristige Erfolge priorisieren.`
         'chat.placeholder': '예: 마케팅 전문가가 여러 채널에서 포괄적인 캠페인을 만드는 데 도움이 되는 캠페인 계획 에이전트를 만들고 싶습니다...',
         'example.text': '예: 마케팅 전문가를 돕는 캠페인 계획 에이전트를 만들고 싶습니다...',
         'audience.placeholder': '예: 회사 직원, 고객, 내부 팀원...',
-        'connected.status': '🟢 Claude Code CLI에 연결되었습니다! 포트 3001에서 로컬 연결을 사용합니다. 모든 응답은 Claude Code 설치를 통해 Claude AI에서 제공됩니다.',
+        'connected.status': '🟢 TD LLM API에 연결되었습니다! 포트 3001에서 로컬 연결을 사용합니다. 모든 응답은 TD Agent Foundry 설치를 통해 TD AI에서 제공됩니다.',
         'quick.examples': '빠른 예제:',
-        'tip.text': '💡 팁: 더 많은 세부 정보를 제공할수록 Claude가 에이전트 구성을 더 잘 생성할 수 있습니다. 사용자가 할 수 있는 구체적인 질문 예시나 도움이 필요한 작업을 포함하세요.',
+        'tip.text': '💡 팁: 더 많은 세부 정보를 제공할수록 AI가 에이전트 구성을 더 잘 생성할 수 있습니다. 사용자가 할 수 있는 구체적인 질문 예시나 도움이 필요한 작업을 포함하세요.',
 
         // Success messages
         'success.generated': '에이전트가 성공적으로 생성되었습니다!',
@@ -1941,8 +1941,8 @@ Immer langfristige Kundenbeziehungen über kurzfristige Erfolge priorisieren.`
         'sidebar.step2.msg': '🔧 이제 프로젝트를 구성하겠습니다. 설명을 기반으로 세부 정보를 미리 채웠습니다.',
         'sidebar.step3.msg': '🤖 거의 완료되었습니다! 에이전트 설정을 검토하세요. 사용 사례에 맞게 모델과 온도를 최적화했습니다.',
         'sidebar.step4.msg': '🎉 훌륭합니다! 에이전트가 배포 준비되었습니다. 파일을 다운로드하고 Agent Foundry 배포 가이드를 따르세요.',
-        'sidebar.generating': '✨ Claude AI에게 에이전트 구성 생성을 요청하는 중...',
-        'sidebar.connected': '🟢 Claude Code CLI에 연결되었습니다! 포트 3001에서 로컬 연결을 사용합니다. 모든 응답은 Claude Code 설치를 통해 Claude AI에서 제공됩니다.',
+        'sidebar.generating': '✨ TD AI에게 에이전트 구성 생성을 요청하는 중...',
+        'sidebar.connected': '🟢 TD LLM API에 연결되었습니다! 포트 3001에서 로컬 연결을 사용합니다. 모든 응답은 TD Agent Foundry 설치를 통해 TD AI에서 제공됩니다.',
 
         // Domain-specific sample data
         'domain.marketing.name': '마케팅 캠페인 계획 허브',
@@ -2055,15 +2055,15 @@ Immer langfristige Kundenbeziehungen über kurzfristige Erfolge priorisieren.`
     dutch: {
         'page.title': 'AI-aangedreven Agent Builder',
         'page.subtitle': 'Beschrijf je agent en ik help je stap voor stap bij het bouwen',
-        'page.powered': 'Aangedreven door Claude Code AI • PM Agent Squad Master Sjabloon',
+        'page.powered': 'Aangedreven door TD Agent Foundry • PM Agent Squad Master Sjabloon',
         'api.settings': 'API-instellingen',
 
         'assistant.title': 'Agent Foundry Assistent',
         'assistant.subtitle': 'Jouw assistent voor het maken van agents',
         'assistant.welcome': "👋 Hallo! Ik ben je Agent Foundry Assistent. Ik help je een aangepaste AI Foundry Agent te maken.",
         'assistant.start': "<strong>Laten we beginnen:</strong> Wat voor soort agent wil je maken? Beschrijf wat het moet doen.",
-        'assistant.connected': '🟢 Verbonden met Claude Code CLI!',
-        'assistant.connection.detail': 'Gebruik van lokale verbinding op poort 3001. Alle antwoorden komen van Claude AI via je Claude Code installatie.',
+        'assistant.connected': '🟢 Verbonden met TD LLM API!',
+        'assistant.connection.detail': 'Gebruik van lokale verbinding op poort 3001. Alle antwoorden komen van TD AI via je TD Agent Foundry installatie.',
         'button.ask': 'Vraag de Assistent',
         'button.stop': '⏹️ Stop Antwoord',
         'button.generate': '✨ Genereer Agent Automatisch',
@@ -2081,12 +2081,12 @@ Immer langfristige Kundenbeziehungen über kurzfristige Erfolge priorisieren.`
         'step.deploy': 'Implementeren',
 
         'step0.title': '🎯 Stap 0: Beschrijf Je Agent',
-        'step0.info': '<strong>AI Constructie:</strong> Vertel Claude wat je agent moet doen en het genereert automatisch kennisbanken, configuratie en implementatiebestanden voor je.',
+        'step0.info': '<strong>AI Constructie:</strong> Vertel TD Agent Foundry wat je agent moet doen en het genereert automatisch kennisbanken, configuratie en implementatiebestanden voor je.',
         'step0.purpose': 'Wat is het doel van je agent?',
         'step0.tone': 'Welke toon moet je agent hebben?',
         'step0.audience': 'Wie zal deze agent gebruiken?',
         'step0.hint': 'Wees specifiek! Voeg toe wat de agent moet doen, wie het zal gebruiken en welke kennis het nodig heeft.',
-        'step0.tip': '<strong>💡 Tip:</strong> Hoe meer details je geeft, hoe beter Claude de configuratie van je agent kan genereren. Voeg specifieke voorbeelden toe van vragen die gebruikers kunnen stellen of taken waarmee ze hulp nodig hebben.',
+        'step0.tip': '<strong>💡 Tip:</strong> Hoe meer details je geeft, hoe beter de AI de configuratie van je agent kan genereren. Voeg specifieke voorbeelden toe van vragen die gebruikers kunnen stellen of taken waarmee ze hulp nodig hebben.',
 
         'tone.professional': 'Professioneel en Formeel',
         'tone.friendly': 'Vriendelijk en Conversationeel',
@@ -2095,7 +2095,7 @@ Immer langfristige Kundenbeziehungen über kurzfristige Erfolge priorisieren.`
         'tone.enthusiastic': 'Enthousiast en Energiek',
 
         'step1.title': '📚 Stap 1: Kennisbanken Beoordelen',
-        'step1.info': '<strong>✨ AI-gegenereerd:</strong> Op basis van je beschrijving heeft Claude deze kennisbanken voor je agent gemaakt. Bekijk en bewerk indien nodig.',
+        'step1.info': '<strong>✨ AI-gegenereerd:</strong> Op basis van je beschrijving heeft TD Agent Foundry deze kennisbanken voor je agent gemaakt. Bekijk en bewerk indien nodig.',
         'step1.empty': 'Voltooi Stap 0 om kennisbanken te genereren',
         'step1.kb.title': 'Kennisbank',
         'step1.kb.content': 'Inhoud',
@@ -2105,13 +2105,13 @@ Immer langfristige Kundenbeziehungen über kurzfristige Erfolge priorisieren.`
         'button.expand': 'Uitklappen',
 
         'step2.title': '⚙️ Stap 2: Projectconfiguratie Beoordelen',
-        'step2.info': '<strong>✨ AI-gegenereerd:</strong> Claude heeft je projectinstellingen geconfigureerd. Bekijk en wijzig indien nodig.',
+        'step2.info': '<strong>✨ AI-gegenereerd:</strong> TD Agent Foundry heeft je projectinstellingen geconfigureerd. Bekijk en wijzig indien nodig.',
         'step2.next': '<strong>📍 Volgende Stap:</strong> Na het voltooien van deze wizard, open <a href="https://console.treasuredata.com/app/agents" target="_blank" class="text-indigo-600 hover:text-indigo-800 underline font-semibold">Treasure Data → AI Agent Foundry</a> om je agent te implementeren.',
         'step2.name': 'Projectnaam',
         'step2.description': 'Projectbeschrijving',
 
         'step3.title': '🤖 Stap 3: Agent Configuratie Beoordelen',
-        'step3.info': '<strong>✨ AI-gegenereerd:</strong> Claude heeft ideale instellingen voor je agent geselecteerd. Pas aan indien nodig.',
+        'step3.info': '<strong>✨ AI-gegenereerd:</strong> TD Agent Foundry heeft ideale instellingen voor je agent geselecteerd. Pas aan indien nodig.',
         'step3.name': 'Agent Weergavenaam',
         'step3.model': 'AI-model',
         'step3.temperature': 'Temperatuur:',
@@ -2167,9 +2167,9 @@ Immer langfristige Kundenbeziehungen über kurzfristige Erfolge priorisieren.`
         'chat.placeholder': 'Voorbeeld: Ik wil een campagne planning agent maken die marketingprofessionals helpt bij het creëren van uitgebreide campagnes over meerdere kanalen...',
         'example.text': 'Voorbeeld: Ik wil een campagne planning agent maken die marketingprofessionals helpt...',
         'audience.placeholder': 'Voorbeeld: Bedrijfsmedewerkers, klanten, interne teamleden...',
-        'connected.status': '🟢 Verbonden met Claude Code CLI! Gebruik van lokale verbinding op poort 3001. Alle antwoorden komen van Claude AI via je Claude Code installatie.',
+        'connected.status': '🟢 Verbonden met TD LLM API! Gebruik van lokale verbinding op poort 3001. Alle antwoorden komen van TD AI via je TD Agent Foundry installatie.',
         'quick.examples': 'Snelle Voorbeelden:',
-        'tip.text': '💡 Tip: Hoe meer details je geeft, hoe beter Claude de configuratie van je agent kan genereren. Voeg specifieke voorbeelden toe van vragen die gebruikers kunnen stellen of taken waarmee ze hulp nodig hebben.',
+        'tip.text': '💡 Tip: Hoe meer details je geeft, hoe beter de AI de configuratie van je agent kan genereren. Voeg specifieke voorbeelden toe van vragen die gebruikers kunnen stellen of taken waarmee ze hulp nodig hebben.',
 
         // Success messages
         'success.generated': 'Agent succesvol gegenereerd!',
@@ -2184,8 +2184,8 @@ Immer langfristige Kundenbeziehungen über kurzfristige Erfolge priorisieren.`
         'sidebar.step2.msg': '🔧 Laten we nu je project configureren. Ik heb de details vooraf ingevuld op basis van je beschrijving.',
         'sidebar.step3.msg': '🤖 Bijna klaar! Bekijk de agent instellingen. Ik heb het model en de temperatuur geoptimaliseerd voor jouw use case.',
         'sidebar.step4.msg': '🎉 Uitstekend! Je agent is klaar om te implementeren. Download de bestanden en volg de Agent Foundry implementatiegids.',
-        'sidebar.generating': '✨ Vraag Claude AI om de configuratie van je agent te genereren...',
-        'sidebar.connected': '🟢 Verbonden met Claude Code CLI! Gebruik van lokale verbinding op poort 3001. Alle antwoorden komen van Claude AI via je Claude Code installatie.',
+        'sidebar.generating': '✨ Vraag TD AI om de configuratie van je agent te genereren...',
+        'sidebar.connected': '🟢 Verbonden met TD LLM API! Gebruik van lokale verbinding op poort 3001. Alle antwoorden komen van TD AI via je TD Agent Foundry installatie.',
 
         // Domain-specific sample data
         'domain.marketing.name': 'Marketing Campagne Planning Hub',
@@ -2803,14 +2803,14 @@ async function sendToAI() {
     showTypingIndicator('Agent Foundry Assistant is thinking...');
 
     try {
-        // Check if Claude API is available
+        // Check if TD LLM API is available
         if (typeof claudeAPI === 'undefined') {
-            throw new Error('Claude API not loaded. Please refresh the page.');
+            throw new Error('TD LLM API not loaded. Please refresh the page.');
         }
 
-        console.log('📤 Sending message to Claude API:', message.substring(0, 50) + '...');
+        console.log('📤 Sending message to TD LLM API:', message.substring(0, 50) + '...');
 
-        // Always use live Claude API with streaming
+        // Always use live TD LLM API with streaming
         const aiResponse = await claudeAPI.sendMessage(
             message,
             chatHistory.slice(0, -1), // Don't include the message we just added
@@ -2823,7 +2823,7 @@ async function sendToAI() {
 
         removeTypingIndicator();
 
-        // If Claude provided agent recommendations, auto-populate and add helpful message
+        // If AI provided agent recommendations, auto-populate and add helpful message
         let finalResponse = aiResponse;
         if (aiResponse.includes('Agent') && (aiResponse.includes('Knowledge Base') || aiResponse.includes('Model:') || aiResponse.includes('Temperature:'))) {
             const descriptionTextarea = document.getElementById('agentDescription');
@@ -2905,7 +2905,7 @@ function addChatMessage(role, content) {
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
-function showTypingIndicator(message = 'Claude is typing...') {
+function showTypingIndicator(message = 'TD Agent Foundry is generating...') {
     const messagesDiv = document.getElementById('aiChatMessages');
     const typingDiv = document.createElement('div');
     typingDiv.id = 'typingIndicator';
@@ -2942,7 +2942,7 @@ function removeTypingIndicator() {
     }
 }
 
-// Demo mode removed - all responses now come from real Claude API via claude-code-proxy.cjs
+// Demo mode removed - all responses now come from real TD LLM API via claude-code-proxy.cjs
 
 // Quick Example Loaders
 function loadQuickExample(type) {
@@ -3212,9 +3212,9 @@ async function generateAgent() {
     startGenerationTimer();
 
     try {
-        // Check if Claude API is available
+        // Check if TD LLM API is available
         if (typeof claudeAPI === 'undefined') {
-            throw new Error('Claude API not loaded. Please refresh the page.');
+            throw new Error('TD LLM API not loaded. Please refresh the page.');
         }
 
         // Get language preference
@@ -3240,7 +3240,7 @@ async function generateAgent() {
         wizardStats.aiApiCalls++;
         console.log('📊 AI generation started at:', new Date(wizardStats.aiGenerationStartTime).toLocaleTimeString());
 
-        // Ask Claude to generate the full configuration
+        // Ask AI to generate the full configuration
         const prompt = `Based on this agent description:\n\n"${fullDescription}"${languageInstruction}\n\nGenerate ONLY a JSON object (no other text) with this exact structure:\n\n{\n  "domain": "marketing",\n  "agentName": "Campaign Planning Expert",\n  "knowledgeBases": [\n    {\n      "name": "Campaign Planning Guide",\n      "description": "Comprehensive guide for planning marketing campaigns. Include best practices for:\n- Setting SMART goals and KPIs\n- Defining target audiences and personas\n- Budget allocation strategies\n- Timeline and milestone planning\n- Campaign brief templates"\n    },\n    {\n      "name": "Platform Best Practices",\n      "description": "Best practices for Meta, Google, TikTok advertising. Cover:\n- Platform-specific ad formats and specs\n- Audience targeting options\n- Bidding strategies\n- Creative guidelines\n- A/B testing frameworks"\n    }\n  ],\n  "outputs": [\n    {\n      "outputName": "campaign_plan",\n      "functionName": "generate_campaign_plan",\n      "functionDescription": "Generate a comprehensive digital marketing campaign plan including strategy, objectives, target audience, budget allocation, creative direction, KPIs, and implementation timeline",\n      "outputType": "custom",\n      "jsonSchema": "{\\"type\\": \\"object\\", \\"properties\\": {\\"campaign_objective\\": {\\"type\\": \\"string\\"}, \\"target_audience\\": {\\"type\\": \\"object\\"}, \\"budget_allocation\\": {\\"type\\": \\"object\\"}, \\"creative_direction\\": {\\"type\\": \\"string\\"}, \\"kpi_targets\\": {\\"type\\": \\"array\\"}, \\"platform_strategy\\": {\\"type\\": \\"object\\"}, \\"timeline\\": {\\"type\\": \\"string\\"}}, \\"required\\": [\\"campaign_objective\\", \\"budget_allocation\\", \\"kpi_targets\\"]}"\n    },\n    {\n      "outputName": ":plotly:",\n      "functionName": "generate_performance_chart",\n      "functionDescription": "Create interactive performance visualizations using Plotly.js for campaign metrics and analytics",\n      "outputType": "custom",\n      "jsonSchema": "{\\"type\\": \\"object\\", \\"properties\\": {\\"data\\": {\\"type\\": \\"array\\"}, \\"layout\\": {\\"type\\": \\"object\\"}}, \\"required\\": [\\"data\\"]}"\n    }\n  ],\n  "model": "anthropic.claude-4.5-sonnet",\n  "temperature": 0.7,\n  "maxToolsIterations": 3,\n  "modelReasoning": "Claude 4.5 Sonnet is the latest balanced model with superior reasoning and reduced hallucinations, ideal for marketing tasks. Temperature 0.7 allows creative campaign suggestions while maintaining consistency. Max Tools Iterations set to 3 allows the agent to refine tool calls for better results.",\n  "systemPrompt": "You are an expert campaign strategist and marketing advisor for Treasure Data. Your role is to help marketers plan, optimize, and execute comprehensive marketing campaigns across multiple channels including Meta, Google, TikTok, and LinkedIn.\\n\\nYour expertise includes:\\n- Campaign planning and goal setting\\n- Audience targeting and segmentation\\n- Budget allocation and optimization\\n- Creative strategy and messaging\\n- Performance analytics and reporting\\n\\nProvide actionable, data-driven recommendations tailored to each campaign's specific goals and constraints."\n}\n\nIMPORTANT REQUIREMENTS FOR SYSTEM PROMPT:\n\n**The systemPrompt must be comprehensive and professional (400-600 words, MAX 1200 words to stay under 9000 character limit). Follow these guidelines:**\n\n1. **IDENTITY & ROLE** (Opening section)\n   - Clear identity statement with expertise domain\n   - Primary role and responsibilities\n   - Value proposition to users\n   - Professional credentials or background context\n\n2. **CORE CAPABILITIES** (Detailed list)\n   - 8-12 specific capabilities with brief explanations\n   - Platform-specific expertise (if applicable)\n   - Technical and strategic skills\n   - Domain knowledge areas\n\n3. **OPERATIONAL GUIDELINES** (How the agent works)\n   - Decision-making framework\n   - Prioritization approach\n   - Quality standards\n   - Best practices the agent follows\n   - Communication style and tone\n\n4. **KNOWLEDGE BOUNDARIES** (What the agent covers)\n   - Scope of expertise\n   - Information sources and recency\n   - Areas of specialization\n   - Adjacent domains it can support\n\n5. **INTERACTION PROTOCOLS** (How to engage users)\n   - Question clarification approach\n   - Information gathering process\n   - Response structure and format\n   - Follow-up and iteration strategy\n   - Examples or templates to provide\n\n6. **CONSTRAINTS & LIMITATIONS** (Critical guardrails)\n   - What the agent will NOT do\n   - Ethical boundaries\n   - When to escalate to humans\n   - Uncertainty handling\n   - Compliance and legal considerations\n\n7. **OUTPUT QUALITY** (Deliverable standards)\n   - Specificity and actionability requirements\n   - Data and evidence usage\n   - Structured vs. conversational responses\n   - Follow-up recommendations\n\n8. **DOMAIN-SPECIFIC EXPERTISE** (For marketing agents)\n   - Platform knowledge (Meta, Google, TikTok, Pinterest, LinkedIn)\n   - Campaign lifecycle understanding\n   - Analytics and optimization frameworks\n   - Creative strategy principles\n   - Budget management approaches\n   - Audience targeting methodologies\n   - Performance benchmarks and KPIs\n   - A/B testing and experimentation\n   - Funnel optimization tactics\n   - Attribution and measurement\n\n**TONE & STYLE:** Professional, confident, consultative, data-driven, actionable\n\n**FORMAT:** Use newline characters (\\n\\n) to create well-structured sections. Use bullet points (-) for lists.\n\nOTHER REQUIREMENTS:\n1. Return ONLY the JSON object, nothing else\n2. Include 4-5 knowledge bases\n3. Make each knowledge base description detailed (200-400 words) with specific topics, guidelines, and examples\n4. The description field will be used as the actual knowledge base content\n5. Create a descriptive agentName (3-5 words) that reflects the agent's purpose\n6. Provide modelReasoning explaining why you chose that specific model, temperature, and maxToolsIterations\n7. Set maxToolsIterations (0-10) based on agent complexity: 0 for simple Q&A, 2-5 for standard agents, 5-10 for complex data/search agents\n8. Ensure the systemPrompt follows ALL the guidelines above for a comprehensive prompt (400-600 words, MAX 1200 words)
 9. CRITICAL: The systemPrompt MUST NOT exceed 9000 characters. Keep it concise and under this limit.`;
 
@@ -3406,7 +3406,7 @@ async function generateAgent() {
         wizardStats.outputTokens += estimatedOutputTokens;
         wizardStats.totalTokensUsed = wizardStats.inputTokens + wizardStats.outputTokens;
 
-        // Estimate cost (Claude 4.5 Sonnet pricing: $3/MTok input, $15/MTok output)
+        // Estimate cost (TD LLM pricing: $3/MTok input, $15/MTok output)
         const inputCost = (wizardStats.inputTokens / 1000000) * 3;
         const outputCost = (wizardStats.outputTokens / 1000000) * 15;
         wizardStats.estimatedCost = inputCost + outputCost;
@@ -10367,7 +10367,7 @@ FIELD REQUIREMENTS:
 
 Format your response as HTML with sections using h4 tags, bullet points in ul/li, and use color classes: text-green-600 for positive, text-amber-600 for suggestions, text-red-600 for issues.`;
 
-        // Call Claude API
+        // Call TD LLM API
         const response = await claudeAPI.sendMessage(analysisPrompt, []);
 
         // Parse recommendations from response
@@ -10497,7 +10497,7 @@ Format your response as HTML with sections using h4 tags, bullet points in ul/li
         resultsDiv.innerHTML = `
             <div class="bg-red-50 border border-red-200 rounded-lg p-4">
                 <p class="text-red-900"><strong>❌ Error:</strong> ${error.message}</p>
-                <p class="text-sm text-red-700 mt-2">Please ensure Claude Code CLI is running and try again.</p>
+                <p class="text-sm text-red-700 mt-2">Please ensure TD LLM API is running and try again.</p>
             </div>
         `;
     }
@@ -10618,7 +10618,7 @@ If providing a refined version, wrap it in:
         resultsDiv.innerHTML = `
             <div class="bg-red-50 border border-red-200 rounded-lg p-4">
                 <p class="text-red-900"><strong>❌ Error:</strong> ${error.message}</p>
-                <p class="text-sm text-red-700 mt-2">Please ensure Claude Code CLI is running and try again.</p>
+                <p class="text-sm text-red-700 mt-2">Please ensure TD LLM API is running and try again.</p>
             </div>
         `;
     }
@@ -11187,7 +11187,7 @@ Respond as this agent would, referencing relevant knowledge bases and mentioning
 
     } catch (error) {
         typingDiv.remove();
-        addTestMessage('error', `❌ Error: ${error.message}. Please ensure Claude Code CLI is running.`);
+        addTestMessage('error', `❌ Error: ${error.message}. Please ensure TD LLM API is running.`);
     }
 }
 

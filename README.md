@@ -149,10 +149,10 @@ Check proxy server logs for:
 
 | Feature | PM-Agent-Squad-Master | This Version (TD LLM) |
 |---------|----------------------|----------------------|
-| Backend | Claude Code CLI | TD LLM API |
-| Auth | Claude CLI login | TD API Key |
-| Deployment | Requires Claude CLI | Standard Node.js |
-| Models | Claude only | Multiple via TD |
+| Backend | Local CLI | TD LLM API |
+| Auth | Local Auth | TD API Key |
+| Deployment | Local Only | Deploy Anywhere |
+| Models | Limited | Multiple via TD |
 | Portability | Local only | Deploy anywhere |
 
 ---
