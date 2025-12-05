@@ -1197,7 +1197,7 @@ Siempre priorizar las relaciones a largo plazo con los clientes sobre las victor
         'audience.placeholder': 'Exemple : Employés de l\'entreprise, clients, membres internes de l\'équipe...',
         'connected.status': '🟢 Connecté à TD LLM API ! Utilisation de la connexion locale sur le port 3001. Toutes les réponses proviennent de TD AI via votre installation TD Agent Foundry.',
         'quick.examples': 'Exemples Rapides :',
-        'tip.text': '💡 Astuce : Plus vous fournissez de détails, mieux l'IA peut générer la configuration de votre agent. Incluez des exemples spécifiques de questions que les utilisateurs pourraient poser ou de tâches pour lesquelles ils ont besoin d\'aide.',
+        'tip.text': '💡 Astuce : Plus vous fournissez de détails, mieux l\'IA peut générer la configuration de votre agent. Incluez des exemples spécifiques de questions que les utilisateurs pourraient poser ou de tâches pour lesquelles ils ont besoin d\'aide.',
 
         // Success messages
         'success.generated': 'Agent généré avec succès !',
