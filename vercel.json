@@ -1,6 +1,5 @@
 {
   "version": 2,
-  "name": "agent-builder-wizard-tdllm",
   "builds": [
     {
       "src": "proxy-server.js",
@@ -36,10 +35,5 @@
       "src": "/(.*)",
       "dest": "/$1"
     }
-  ],
-  "env": {
-    "TD_API_KEY": "@td-api-key",
-    "TD_LLM_BASE_URL": "@td-llm-base-url",
-    "TD_AGENT_ID": "@td-agent-id"
-  }
+  ]
 }
