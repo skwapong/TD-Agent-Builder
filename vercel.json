@@ -1,0 +1,45 @@
+{
+  "version": 2,
+  "name": "agent-builder-wizard-tdllm",
+  "builds": [
+    {
+      "src": "proxy-server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "*.html",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.css",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.ico",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/proxy-server.js"
+    },
+    {
+      "src": "/health",
+      "dest": "/proxy-server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ],
+  "env": {
+    "TD_API_KEY": "@td-api-key",
+    "TD_LLM_BASE_URL": "@td-llm-base-url",
+    "TD_AGENT_ID": "@td-agent-id"
+  }
+}
