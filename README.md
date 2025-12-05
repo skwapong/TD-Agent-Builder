@@ -1,4 +1,4 @@
-# Agent Builder Wizard - TD LLM Edition
+# TD Agent Builder
 
 > **AI-Powered Agent Builder using Treasure Data LLM API**
 
@@ -10,8 +10,8 @@ Build custom AI agents with an intuitive wizard interface, powered by Treasure D
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/skwapong/agent-builder-wizard-tdllm.git
-cd agent-builder-wizard-tdllm
+git clone https://github.com/skwapong/TD-Agent-Builder.git
+cd TD-Agent-Builder
 
 # 2. Configure your API key
 cp .env.example .env
@@ -61,7 +61,7 @@ node proxy-server.js
 ## 📁 Project Structure
 
 ```
-agent-builder-wizard-tdllm/
+TD-Agent-Builder/
 ├── index.html           # Main wizard UI
 ├── td-llm-api.js        # TD LLM API client
 ├── wizard-ai.js         # Wizard logic & AI integration

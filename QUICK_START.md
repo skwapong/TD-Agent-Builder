@@ -1,4 +1,4 @@
-# Quick Start Guide - Agent Builder Wizard (TD LLM Edition)
+# Quick Start Guide - TD Agent Builder
 
 > **For colleagues who just want to start building agents NOW!**
 
@@ -9,8 +9,8 @@
 ### 1. Clone & Setup (First Time Only)
 ```bash
 # Clone the repository
-git clone https://github.com/skwapong/agent-builder-wizard-tdllm.git
-cd agent-builder-wizard-tdllm
+git clone https://github.com/skwapong/TD-Agent-Builder.git
+cd TD-Agent-Builder
 
 # Create your config file
 cp .env.example .env
@@ -28,7 +28,7 @@ TD_AGENT_ID=your-agent-id  # Optional
 
 ### 3. Start Every Time
 ```bash
-cd /path/to/agent-builder-wizard-tdllm
+cd /path/to/TD-Agent-Builder
 ./start.sh
 ```
 
@@ -43,7 +43,7 @@ node proxy-server.js
 ## 🔄 Update to Latest Version
 
 ```bash
-cd /path/to/agent-builder-wizard-tdllm
+cd /path/to/TD-Agent-Builder
 git pull origin main
 ./start.sh
 ```
