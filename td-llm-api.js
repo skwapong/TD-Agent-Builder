@@ -7,8 +7,9 @@
 
 class TDLLMAPI {
     constructor() {
-        // Proxy server URL (handles TD API authentication)
-        this.proxyUrl = 'http://localhost:3001';
+        // Detect environment and set proxy URL accordingly
+        // Use relative URLs for production (Vercel), absolute for local dev
+        this.proxyUrl = this.detectProxyUrl();
         this.agentId = null;
         this.currentChatId = null;
         this.currentAbortController = null;
@@ -37,17 +38,33 @@ class TDLLMAPI {
         this.loadSettings();
 
         console.log('🌐 TD LLM API initialized');
+        console.log('📡 Proxy URL:', this.proxyUrl);
+    }
+
+    detectProxyUrl() {
+        // Check if running on localhost (development)
+        const isLocalhost = window.location.hostname === 'localhost' ||
+                           window.location.hostname === '127.0.0.1' ||
+                           window.location.protocol === 'file:';
+
+        if (isLocalhost) {
+            // Local development - use absolute URL to local proxy
+            return 'http://localhost:3001';
+        } else {
+            // Production (Vercel, etc.) - use relative URLs
+            // The proxy-server.js handles /api/* routes
+            return '';
+        }
     }
 
     loadSettings() {
         try {
             const savedAgentId = localStorage.getItem('td_agent_id');
             const savedModel = localStorage.getItem('td_model');
-            const savedProxyUrl = localStorage.getItem('td_proxy_url');
 
             if (savedAgentId) this.agentId = savedAgentId;
             if (savedModel) this.model = savedModel;
-            if (savedProxyUrl) this.proxyUrl = savedProxyUrl;
+            // Note: proxyUrl is auto-detected, don't load from localStorage
         } catch (e) {
             console.warn('Could not load settings from localStorage:', e);
         }
