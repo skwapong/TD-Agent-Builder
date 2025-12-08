@@ -3381,12 +3381,26 @@ async function generateAgent() {
 
         // Generate agent configuration with AI suggestions
         if (config.model) {
-            agentConfig.model = config.model;
-            console.log(`✅ AI Model: ${config.model}`);
-            // Populate model select
             const modelSelect = document.getElementById('modelSelect');
             if (modelSelect) {
-                modelSelect.value = config.model;
+                // Check if the AI-suggested model exists in the dropdown
+                const modelExists = Array.from(modelSelect.options).some(opt => opt.value === config.model);
+
+                if (modelExists) {
+                    agentConfig.model = config.model;
+                    modelSelect.value = config.model;
+                    console.log(`✅ AI Model: ${config.model}`);
+                } else {
+                    // AI suggested a model not in our dropdown - use default
+                    console.warn(`⚠️ AI suggested model "${config.model}" not found in dropdown, using default`);
+                    const defaultModel = 'anthropic.claude-4.5-sonnet';
+                    agentConfig.model = defaultModel;
+                    modelSelect.value = defaultModel;
+                    console.log(`✅ AI Model (fallback): ${defaultModel}`);
+                }
+            } else {
+                agentConfig.model = config.model;
+                console.log(`✅ AI Model: ${config.model}`);
             }
         }
         if (config.temperature !== undefined) {
@@ -10770,6 +10784,9 @@ Provide 3-6 specific suggestions. Each suggestion MUST have currentText (can be 
         const suggestionsHTML = buildRefinementUI(analysisData);
         resultsDiv.innerHTML = suggestionsHTML;
 
+        // Cache the suggestions HTML for "Back" navigation
+        window.cachedSuggestionsHTML = suggestionsHTML;
+
     } catch (error) {
         resultsDiv.innerHTML = `
             <div class="bg-red-50 border border-red-200 rounded-lg p-4">
@@ -11000,7 +11017,7 @@ function showComparisonView() {
 
     resultsDiv.innerHTML = `
         <div class="mb-4">
-            <button onclick="refineSystemPrompt()" class="text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-1">
+            <button onclick="backToSuggestions()" class="text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-1">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                 </svg>
@@ -11032,7 +11049,7 @@ function showComparisonView() {
         </div>
 
         <div class="mt-6 flex justify-end gap-3">
-            <button onclick="refineSystemPrompt()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors">
+            <button onclick="backToSuggestions()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors">
                 Back
             </button>
             <button onclick="applyAllSuggestions()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-medium py-2 px-4 rounded-lg transition-all shadow-md flex items-center gap-2">
@@ -11055,7 +11072,7 @@ function previewRefinedPrompt() {
     const resultsDiv = document.getElementById('refinePromptResults');
     resultsDiv.innerHTML = `
         <div class="mb-4">
-            <button onclick="refineSystemPrompt()" class="text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-1">
+            <button onclick="backToSuggestions()" class="text-indigo-600 hover:text-indigo-700 font-medium flex items-center gap-1">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
                 </svg>
@@ -11092,7 +11109,21 @@ function previewRefinedPrompt() {
 }
 
 function backToSuggestions() {
-    refineSystemPrompt(); // Re-run to show suggestions again
+    // Restore cached suggestions HTML instead of making new API call
+    if (window.cachedSuggestionsHTML) {
+        const resultsDiv = document.getElementById('refinePromptResults');
+        if (resultsDiv) {
+            resultsDiv.innerHTML = window.cachedSuggestionsHTML;
+        }
+    } else {
+        // Fallback: if no cache, re-fetch (shouldn't normally happen)
+        refineSystemPrompt();
+    }
+}
+
+function showSuggestionsView() {
+    // Alias for backToSuggestions for clearer intent
+    backToSuggestions();
 }
 
 function applyRefinedPrompt() {
