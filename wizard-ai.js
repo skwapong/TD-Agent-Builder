@@ -4809,7 +4809,7 @@ Output ONLY the system prompt text - no explanations, no markdown code blocks, j
 
         wizardStats.aiApiCalls++;
 
-        const response = await sendMessageToAI(prompt, (chunk, fullText) => {
+        const response = await claudeAPI.sendMessage(prompt, [], (chunk, fullText) => {
             updateTypingIndicator(fullText);
         });
 
