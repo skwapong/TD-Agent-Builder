@@ -3338,7 +3338,11 @@ async function generateAgent() {
         const jsonString = jsonMatch[1] || jsonMatch[0];
         console.log('📝 Extracted JSON:', jsonString.substring(0, 200));
 
-        const config = JSON.parse(jsonString);
+        // Use repairJSON to handle truncated responses gracefully
+        const config = repairJSON(jsonString);
+        if (!config) {
+            throw new Error('Could not parse AI response JSON. The response may have been truncated. Please try again.');
+        }
 
         // Detect domain
         const domain = config.domain || 'custom';
@@ -10921,16 +10925,12 @@ Provide 3-6 specific suggestions with clear actionable recommendations.`;
         // Call TD LLM API
         const response = await claudeAPI.sendMessage(analysisPrompt, []);
 
-        // Parse JSON from response
+        // Parse JSON from response using repair function
         let analysisData = null;
         const jsonMatch = response.match(/```json\s*([\s\S]*?)\s*```/) || response.match(/(\{[\s\S]*\})/);
 
         if (jsonMatch) {
-            try {
-                analysisData = JSON.parse(jsonMatch[1]);
-            } catch (e) {
-                console.warn('Failed to parse optimization JSON:', e);
-            }
+            analysisData = repairJSON(jsonMatch[1] || jsonMatch[0]);
         }
 
         if (!analysisData) {
@@ -11359,17 +11359,15 @@ Provide 3-6 specific suggestions. Each suggestion MUST have currentText (can be 
 
         const response = await claudeAPI.sendMessage(refinementPrompt, []);
 
-        // Parse the JSON response
+        // Parse the JSON response using repair function
         let analysisData;
-        try {
-            const jsonMatch = response.match(/```json\s*([\s\S]*?)\s*```/) || response.match(/(\{[\s\S]*\})/);
-            if (jsonMatch) {
-                analysisData = JSON.parse(jsonMatch[1]);
-            } else {
-                throw new Error('Could not parse AI response');
-            }
-        } catch (parseError) {
-            console.error('Parse error:', parseError);
+        const jsonMatch = response.match(/```json\s*([\s\S]*?)\s*```/) || response.match(/(\{[\s\S]*\})/);
+        if (jsonMatch) {
+            analysisData = repairJSON(jsonMatch[1] || jsonMatch[0]);
+        }
+
+        if (!analysisData) {
+            console.error('Could not parse refinement JSON');
             // Fallback to simple display
             resultsDiv.innerHTML = `
                 <div class="prose max-w-none">
@@ -11557,6 +11555,120 @@ function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+}
+
+/**
+ * Attempt to repair truncated or malformed JSON
+ * Handles common issues like:
+ * - Unterminated strings
+ * - Missing closing braces/brackets
+ * - Trailing commas
+ */
+function repairJSON(jsonString) {
+    if (!jsonString || typeof jsonString !== 'string') {
+        return null;
+    }
+
+    let repaired = jsonString.trim();
+
+    // Remove markdown code block markers if present
+    repaired = repaired.replace(/^```json\s*/i, '').replace(/\s*```$/i, '');
+
+    // Try parsing as-is first
+    try {
+        return JSON.parse(repaired);
+    } catch (e) {
+        console.log('🔧 Attempting JSON repair...');
+    }
+
+    // Fix unterminated strings - find last complete string
+    // Count quotes to check if we have an unterminated string
+    let inString = false;
+    let lastValidPosition = 0;
+    let braceDepth = 0;
+    let bracketDepth = 0;
+
+    for (let i = 0; i < repaired.length; i++) {
+        const char = repaired[i];
+        const prevChar = i > 0 ? repaired[i - 1] : '';
+
+        if (char === '"' && prevChar !== '\\') {
+            inString = !inString;
+        }
+
+        if (!inString) {
+            if (char === '{') braceDepth++;
+            if (char === '}') braceDepth--;
+            if (char === '[') bracketDepth++;
+            if (char === ']') bracketDepth--;
+
+            // Track position after complete key-value pairs
+            if (char === ',' || char === '{' || char === '[') {
+                lastValidPosition = i + 1;
+            }
+        }
+    }
+
+    // If we ended inside a string, truncate to last valid position
+    if (inString && lastValidPosition > 0) {
+        console.log(`🔧 Truncating at position ${lastValidPosition} to fix unterminated string`);
+        repaired = repaired.substring(0, lastValidPosition);
+    }
+
+    // Remove trailing comma before closing
+    repaired = repaired.replace(/,\s*([}\]])/g, '$1');
+
+    // Remove incomplete last property (key without value or partial value)
+    repaired = repaired.replace(/,\s*"[^"]*"\s*:\s*("[^"]*)?$/g, '');
+    repaired = repaired.replace(/,\s*"[^"]*"\s*:\s*\{[^}]*$/g, '');
+    repaired = repaired.replace(/,\s*"[^"]*"\s*:\s*\[[^\]]*$/g, '');
+    repaired = repaired.replace(/,\s*"[^"]*"\s*$/g, '');
+
+    // Recount braces after cleanup
+    braceDepth = 0;
+    bracketDepth = 0;
+    inString = false;
+
+    for (let i = 0; i < repaired.length; i++) {
+        const char = repaired[i];
+        const prevChar = i > 0 ? repaired[i - 1] : '';
+
+        if (char === '"' && prevChar !== '\\') {
+            inString = !inString;
+        }
+
+        if (!inString) {
+            if (char === '{') braceDepth++;
+            if (char === '}') braceDepth--;
+            if (char === '[') bracketDepth++;
+            if (char === ']') bracketDepth--;
+        }
+    }
+
+    // Add missing closing brackets/braces
+    while (bracketDepth > 0) {
+        repaired += ']';
+        bracketDepth--;
+    }
+    while (braceDepth > 0) {
+        repaired += '}';
+        braceDepth--;
+    }
+
+    // Final cleanup of trailing commas
+    repaired = repaired.replace(/,\s*}/g, '}');
+    repaired = repaired.replace(/,\s*]/g, ']');
+
+    // Try parsing the repaired JSON
+    try {
+        const result = JSON.parse(repaired);
+        console.log('✅ JSON repair successful');
+        return result;
+    } catch (e) {
+        console.error('❌ JSON repair failed:', e.message);
+        console.log('Repaired string (first 500 chars):', repaired.substring(0, 500));
+        return null;
+    }
 }
 
 function applySingleSuggestion(suggestionId) {
