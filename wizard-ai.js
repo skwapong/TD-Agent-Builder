@@ -2934,9 +2934,13 @@ function addChatMessage(role, content) {
         messageDiv.innerHTML = `<p class="text-sm text-gray-800"><strong>You:</strong> ${content}</p>`;
     } else {
         messageDiv.className += ' bg-gradient-to-br from-indigo-50 to-purple-50 rounded-lg p-4 border border-indigo-100';
-        // Parse markdown for assistant messages
+
+        // Check if content already contains HTML (skip markdown parsing if so)
+        const containsHtml = /<[a-z][\s\S]*>/i.test(content);
+
         let formattedContent = content;
-        if (typeof marked !== 'undefined' && marked.parse) {
+        if (!containsHtml && typeof marked !== 'undefined' && marked.parse) {
+            // Parse markdown only for plain text content
             try {
                 formattedContent = marked.parse(content);
             } catch (e) {
