@@ -10889,34 +10889,10 @@ function applySingleOptimization(suggestionId) {
 }
 
 function applyAllOptimizations() {
-    const recs = window.currentOptimizationRecommendations;
-    if (!recs) return;
-
-    let appliedCount = 0;
-
-    if (recs.addKnowledgeBases && recs.addKnowledgeBases.length > 0) {
-        applyKnowledgeBaseRecommendations();
-        appliedCount++;
-    }
-    if (recs.addOutputs && recs.addOutputs.length > 0) {
-        applyOutputRecommendations();
-        appliedCount++;
-    }
-    if (recs.enhanceSystemPrompt) {
-        applySystemPromptEnhancement();
-        appliedCount++;
-    }
-    if (recs.adjustParameters) {
-        applyParameterAdjustments();
-        appliedCount++;
-    }
-
-    if (appliedCount > 0) {
-        closeOptimizeModal();
-        showToast(`✅ Applied ${appliedCount} optimization${appliedCount > 1 ? 's' : ''}!`, 'success');
-    } else {
-        showToast('No optimizations to apply', 'info');
-    }
+    // Use the comprehensive applyAllRecommendations function which:
+    // 1. Applies all changes without navigation
+    // 2. Re-analyzes the agent to show updated score
+    applyAllRecommendations();
 }
 
 function showOptimizationSummary() {
