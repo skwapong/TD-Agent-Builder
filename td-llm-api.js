@@ -14,6 +14,25 @@ class TDLLMAPI {
         this.currentChatId = null;
         this.currentAbortController = null;
 
+        // Rate limiting configuration
+        this.rateLimitConfig = {
+            maxRequestsPerMinute: 10,      // Max requests per minute
+            minRequestInterval: 2000,       // Minimum 2 seconds between requests
+            maxRetries: 3,                  // Max retry attempts
+            baseRetryDelay: 2000,           // Base delay for exponential backoff (2s)
+            maxRetryDelay: 30000,           // Max retry delay (30s)
+            cooldownAfterError: 5000        // Cooldown after any error (5s)
+        };
+
+        // Rate limiting state
+        this.rateLimitState = {
+            requestTimestamps: [],          // Timestamps of recent requests
+            lastRequestTime: 0,             // Last request timestamp
+            isRateLimited: false,           // Currently rate limited
+            rateLimitResetTime: 0,          // When rate limit resets
+            consecutiveErrors: 0            // Track consecutive errors
+        };
+
         // Available models via TD LLM API
         this.availableModels = [
             { id: 'anthropic.claude-4.5-sonnet', name: 'Claude 4.5 Sonnet', provider: 'Anthropic', recommended: true },
@@ -184,6 +203,180 @@ class TDLLMAPI {
         return headers;
     }
 
+    // ========================================
+    // Rate Limiting Methods
+    // ========================================
+
+    /**
+     * Check if we can make a request based on rate limits
+     * @returns {Object} { canProceed: boolean, waitTime: number, reason: string }
+     */
+    checkRateLimit() {
+        const now = Date.now();
+        const state = this.rateLimitState;
+        const config = this.rateLimitConfig;
+
+        // Check if we're in a cooldown period after rate limit
+        if (state.isRateLimited && now < state.rateLimitResetTime) {
+            const waitTime = state.rateLimitResetTime - now;
+            return {
+                canProceed: false,
+                waitTime,
+                reason: `Rate limited. Please wait ${Math.ceil(waitTime / 1000)} seconds.`
+            };
+        } else if (state.isRateLimited && now >= state.rateLimitResetTime) {
+            // Reset rate limit state
+            state.isRateLimited = false;
+            state.rateLimitResetTime = 0;
+        }
+
+        // Check minimum interval between requests
+        const timeSinceLastRequest = now - state.lastRequestTime;
+        if (timeSinceLastRequest < config.minRequestInterval) {
+            const waitTime = config.minRequestInterval - timeSinceLastRequest;
+            return {
+                canProceed: false,
+                waitTime,
+                reason: `Please wait ${Math.ceil(waitTime / 1000)} seconds between requests.`
+            };
+        }
+
+        // Clean old timestamps (older than 1 minute)
+        state.requestTimestamps = state.requestTimestamps.filter(
+            ts => now - ts < 60000
+        );
+
+        // Check requests per minute limit
+        if (state.requestTimestamps.length >= config.maxRequestsPerMinute) {
+            const oldestRequest = state.requestTimestamps[0];
+            const waitTime = 60000 - (now - oldestRequest);
+            return {
+                canProceed: false,
+                waitTime,
+                reason: `Rate limit: ${config.maxRequestsPerMinute} requests per minute. Wait ${Math.ceil(waitTime / 1000)} seconds.`
+            };
+        }
+
+        return { canProceed: true, waitTime: 0, reason: '' };
+    }
+
+    /**
+     * Record a request for rate limiting purposes
+     */
+    recordRequest() {
+        const now = Date.now();
+        this.rateLimitState.requestTimestamps.push(now);
+        this.rateLimitState.lastRequestTime = now;
+    }
+
+    /**
+     * Handle rate limit response from server
+     * @param {Response} response - The fetch response
+     */
+    handleRateLimitResponse(response) {
+        const state = this.rateLimitState;
+        const config = this.rateLimitConfig;
+
+        state.isRateLimited = true;
+
+        // Try to get retry-after header
+        const retryAfter = response.headers.get('Retry-After');
+        if (retryAfter) {
+            const retrySeconds = parseInt(retryAfter, 10);
+            if (!isNaN(retrySeconds)) {
+                state.rateLimitResetTime = Date.now() + (retrySeconds * 1000);
+                console.log(`⏳ Rate limited. Retry after ${retrySeconds} seconds.`);
+                return;
+            }
+        }
+
+        // Default: wait 60 seconds
+        state.rateLimitResetTime = Date.now() + 60000;
+        console.log('⏳ Rate limited. Waiting 60 seconds before retry.');
+    }
+
+    /**
+     * Calculate exponential backoff delay
+     * @param {number} retryCount - Current retry attempt (0-indexed)
+     * @returns {number} Delay in milliseconds
+     */
+    calculateBackoffDelay(retryCount) {
+        const config = this.rateLimitConfig;
+        // Exponential backoff: 2s, 4s, 8s, 16s... capped at maxRetryDelay
+        const delay = Math.min(
+            config.baseRetryDelay * Math.pow(2, retryCount),
+            config.maxRetryDelay
+        );
+        // Add jitter (±25%) to prevent thundering herd
+        const jitter = delay * 0.25 * (Math.random() - 0.5);
+        return Math.round(delay + jitter);
+    }
+
+    /**
+     * Wait for a specified duration with optional progress callback
+     * @param {number} ms - Milliseconds to wait
+     * @param {Function} onProgress - Optional callback with remaining time
+     */
+    async wait(ms, onProgress = null) {
+        const startTime = Date.now();
+        const endTime = startTime + ms;
+
+        return new Promise((resolve) => {
+            const checkProgress = () => {
+                const now = Date.now();
+                const remaining = Math.max(0, endTime - now);
+
+                if (onProgress) {
+                    onProgress(remaining, ms);
+                }
+
+                if (remaining <= 0) {
+                    resolve();
+                } else {
+                    setTimeout(checkProgress, Math.min(remaining, 1000));
+                }
+            };
+            checkProgress();
+        });
+    }
+
+    /**
+     * Wait until rate limit allows a request
+     * @param {Function} onWaiting - Callback when waiting
+     * @returns {Promise<void>}
+     */
+    async waitForRateLimit(onWaiting = null) {
+        let check = this.checkRateLimit();
+
+        while (!check.canProceed) {
+            console.log(`⏳ Rate limit: ${check.reason}`);
+            if (onWaiting) {
+                onWaiting(check.waitTime, check.reason);
+            }
+            await this.wait(check.waitTime);
+            check = this.checkRateLimit();
+        }
+    }
+
+    /**
+     * Get current rate limit status for UI display
+     */
+    getRateLimitStatus() {
+        const check = this.checkRateLimit();
+        const state = this.rateLimitState;
+        const config = this.rateLimitConfig;
+
+        return {
+            canMakeRequest: check.canProceed,
+            waitTime: check.waitTime,
+            reason: check.reason,
+            requestsInLastMinute: state.requestTimestamps.length,
+            maxRequestsPerMinute: config.maxRequestsPerMinute,
+            isRateLimited: state.isRateLimited,
+            consecutiveErrors: state.consecutiveErrors
+        };
+    }
+
     async createChatSession() {
         try {
             const payload = {
@@ -226,7 +419,7 @@ class TDLLMAPI {
         }
     }
 
-    async sendMessage(userMessage, conversationHistory = [], onChunk = null, signal = null) {
+    async sendMessage(userMessage, conversationHistory = [], onChunk = null, signal = null, onRetry = null) {
         // Check connection first
         if (this.connectionStatus !== 'connected') {
             const status = await this.checkConnection();
@@ -235,6 +428,14 @@ class TDLLMAPI {
             }
         }
 
+        // Wait for rate limit if needed
+        await this.waitForRateLimit((waitTime, reason) => {
+            console.log(`⏳ Waiting for rate limit: ${reason}`);
+            if (onRetry) {
+                onRetry({ type: 'rateLimit', waitTime, reason, attempt: 0 });
+            }
+        });
+
         // Create chat session if needed
         if (!this.currentChatId) {
             await this.createChatSession();
@@ -242,47 +443,132 @@ class TDLLMAPI {
 
         this.currentAbortController = new AbortController();
 
-        try {
-            const payload = {
-                input: userMessage
-            };
+        const config = this.rateLimitConfig;
+        let lastError = null;
 
-            console.log('📨 Sending message via TD LLM API:', userMessage.substring(0, 100) + '...');
+        // Retry loop with exponential backoff
+        for (let attempt = 0; attempt <= config.maxRetries; attempt++) {
+            try {
+                // Record this request for rate limiting
+                this.recordRequest();
 
-            const response = await fetch(`${this.proxyUrl}/api/chats/${this.currentChatId}/continue`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'text/event-stream'
-                },
-                body: JSON.stringify(payload),
-                signal: signal || this.currentAbortController.signal
-            });
+                const payload = {
+                    input: userMessage
+                };
 
-            if (!response.ok) {
-                const errorText = await response.text();
-                console.error('❌ API request failed:', response.status, errorText);
+                console.log(`📨 Sending message via TD LLM API (attempt ${attempt + 1}/${config.maxRetries + 1}):`, userMessage.substring(0, 100) + '...');
 
-                // If chat session expired, try to create a new one
-                if (response.status === 404 || response.status === 410) {
-                    console.log('🔄 Chat session expired, creating new session...');
-                    this.currentChatId = null;
-                    return await this.sendMessage(userMessage, conversationHistory, onChunk, signal);
+                const response = await fetch(`${this.proxyUrl}/api/chats/${this.currentChatId}/continue`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'text/event-stream'
+                    },
+                    body: JSON.stringify(payload),
+                    signal: signal || this.currentAbortController.signal
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('❌ API request failed:', response.status, errorText);
+
+                    // If chat session expired, try to create a new one
+                    if (response.status === 404 || response.status === 410) {
+                        console.log('🔄 Chat session expired, creating new session...');
+                        this.currentChatId = null;
+                        return await this.sendMessage(userMessage, conversationHistory, onChunk, signal, onRetry);
+                    }
+
+                    // Handle rate limit response (429)
+                    if (response.status === 429) {
+                        this.handleRateLimitResponse(response);
+                        this.rateLimitState.consecutiveErrors++;
+
+                        if (attempt < config.maxRetries) {
+                            const waitTime = this.rateLimitState.rateLimitResetTime - Date.now();
+                            console.log(`⏳ Rate limited (429). Waiting ${Math.ceil(waitTime / 1000)}s before retry...`);
+
+                            if (onRetry) {
+                                onRetry({
+                                    type: 'rateLimit',
+                                    attempt: attempt + 1,
+                                    maxRetries: config.maxRetries,
+                                    waitTime,
+                                    reason: 'Server rate limit exceeded'
+                                });
+                            }
+
+                            await this.wait(waitTime);
+                            continue; // Retry
+                        }
+                    }
+
+                    // Handle server errors (500, 502, 503) with retry
+                    if ([500, 502, 503].includes(response.status) && attempt < config.maxRetries) {
+                        const backoffDelay = this.calculateBackoffDelay(attempt);
+                        console.log(`⏳ Server error (${response.status}). Retrying in ${Math.ceil(backoffDelay / 1000)}s...`);
+                        this.rateLimitState.consecutiveErrors++;
+
+                        if (onRetry) {
+                            onRetry({
+                                type: 'serverError',
+                                attempt: attempt + 1,
+                                maxRetries: config.maxRetries,
+                                waitTime: backoffDelay,
+                                reason: `Server error (${response.status})`
+                            });
+                        }
+
+                        await this.wait(backoffDelay);
+                        continue; // Retry
+                    }
+
+                    throw new Error(`API request failed: ${response.status} - ${errorText}`);
                 }
 
-                throw new Error(`API request failed: ${response.status} - ${errorText}`);
-            }
+                // Success! Reset consecutive errors
+                this.rateLimitState.consecutiveErrors = 0;
 
-            return await this.handleStreamingResponse(response, onChunk);
+                return await this.handleStreamingResponse(response, onChunk);
 
-        } catch (error) {
-            if (error.name === 'AbortError') {
-                console.log('Request was aborted');
+            } catch (error) {
+                lastError = error;
+
+                if (error.name === 'AbortError') {
+                    console.log('Request was aborted');
+                    throw error;
+                }
+
+                // Network errors - retry with backoff
+                if (error.message.includes('fetch') || error.message.includes('network') || error.message.includes('Failed to fetch')) {
+                    this.rateLimitState.consecutiveErrors++;
+
+                    if (attempt < config.maxRetries) {
+                        const backoffDelay = this.calculateBackoffDelay(attempt);
+                        console.log(`⏳ Network error. Retrying in ${Math.ceil(backoffDelay / 1000)}s...`);
+
+                        if (onRetry) {
+                            onRetry({
+                                type: 'networkError',
+                                attempt: attempt + 1,
+                                maxRetries: config.maxRetries,
+                                waitTime: backoffDelay,
+                                reason: 'Network connection error'
+                            });
+                        }
+
+                        await this.wait(backoffDelay);
+                        continue; // Retry
+                    }
+                }
+
+                console.error('TD LLM API Error:', error);
                 throw error;
             }
-            console.error('TD LLM API Error:', error);
-            throw error;
         }
+
+        // All retries exhausted
+        throw lastError || new Error('All retry attempts failed');
     }
 
     async handleStreamingResponse(response, onChunk) {
