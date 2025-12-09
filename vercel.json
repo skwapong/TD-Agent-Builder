@@ -6,15 +6,7 @@
       "use": "@vercel/node"
     },
     {
-      "src": "api/community/publish.js",
-      "use": "@vercel/edge"
-    },
-    {
       "src": "*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.js",
       "use": "@vercel/static"
     },
     {
@@ -26,10 +18,35 @@
       "use": "@vercel/static"
     },
     {
-      "src": "*.json",
+      "src": "community-agents.json",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "wizard-ai.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "td-llm-api.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "agent-templates.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "config-helper.js",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "td-theme.css",
       "use": "@vercel/static"
     }
   ],
+  "functions": {
+    "api/community/publish.js": {
+      "runtime": "edge"
+    }
+  },
   "routes": [
     {
       "src": "/api/community/publish",
