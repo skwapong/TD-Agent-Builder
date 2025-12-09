@@ -6,6 +6,10 @@
       "use": "@vercel/node"
     },
     {
+      "src": "api/community/publish.js",
+      "use": "@vercel/edge"
+    },
+    {
       "src": "*.html",
       "use": "@vercel/static"
     },
@@ -20,9 +24,17 @@
     {
       "src": "*.ico",
       "use": "@vercel/static"
+    },
+    {
+      "src": "*.json",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
+    {
+      "src": "/api/community/publish",
+      "dest": "/api/community/publish.js"
+    },
     {
       "src": "/api/(.*)",
       "dest": "/proxy-server.js"

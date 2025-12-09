@@ -12443,6 +12443,470 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // ============================================================================
+// COMMUNITY GALLERY
+// ============================================================================
+
+// Community agents cache
+let communityAgentsCache = null;
+let communityAgentsLastFetch = 0;
+const COMMUNITY_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+
+// Get the base URL for community-agents.json
+function getCommunityAgentsUrl() {
+    // Check if we're on GitHub Pages or local
+    const isLocalhost = window.location.hostname === 'localhost' ||
+                       window.location.hostname === '127.0.0.1' ||
+                       window.location.protocol === 'file:';
+
+    if (isLocalhost) {
+        return 'community-agents.json';
+    }
+
+    // For production - use relative URL or GitHub raw URL
+    // This will be served from the same domain
+    return 'community-agents.json';
+}
+
+// Open Community Gallery Modal
+function openCommunityGalleryModal() {
+    const modal = document.getElementById('communityGalleryModal');
+    modal.classList.remove('hidden');
+    loadCommunityAgents();
+}
+
+// Close Community Gallery Modal
+function closeCommunityGalleryModal() {
+    const modal = document.getElementById('communityGalleryModal');
+    modal.classList.add('hidden');
+}
+
+// Load community agents from JSON file
+async function loadCommunityAgents(forceRefresh = false) {
+    const loadingDiv = document.getElementById('communityAgentsLoading');
+    const listDiv = document.getElementById('communityAgentsList');
+    const emptyDiv = document.getElementById('communityAgentsEmpty');
+    const errorDiv = document.getElementById('communityAgentsError');
+    const countSpan = document.getElementById('communityAgentCount');
+
+    // Show loading, hide others
+    loadingDiv.classList.remove('hidden');
+    listDiv.classList.add('hidden');
+    emptyDiv.classList.add('hidden');
+    errorDiv.classList.add('hidden');
+
+    try {
+        // Check cache
+        const now = Date.now();
+        if (!forceRefresh && communityAgentsCache && (now - communityAgentsLastFetch) < COMMUNITY_CACHE_TTL) {
+            displayCommunityAgents(communityAgentsCache);
+            return;
+        }
+
+        const url = getCommunityAgentsUrl();
+        const response = await fetch(url + '?t=' + now); // Cache bust
+
+        if (!response.ok) {
+            throw new Error(`Failed to load: ${response.status}`);
+        }
+
+        const data = await response.json();
+        communityAgentsCache = data.agents || [];
+        communityAgentsLastFetch = now;
+
+        displayCommunityAgents(communityAgentsCache);
+
+    } catch (error) {
+        console.error('Failed to load community agents:', error);
+        loadingDiv.classList.add('hidden');
+        errorDiv.classList.remove('hidden');
+        document.getElementById('communityErrorMessage').textContent = error.message;
+    }
+}
+
+// Display community agents in the gallery
+function displayCommunityAgents(agents) {
+    const loadingDiv = document.getElementById('communityAgentsLoading');
+    const listDiv = document.getElementById('communityAgentsList');
+    const emptyDiv = document.getElementById('communityAgentsEmpty');
+    const countSpan = document.getElementById('communityAgentCount');
+
+    loadingDiv.classList.add('hidden');
+
+    // Get filter values
+    const searchTerm = document.getElementById('searchCommunityAgents')?.value?.toLowerCase() || '';
+    const categoryFilter = document.getElementById('filterCommunityCategory')?.value || '';
+    const sortBy = document.getElementById('sortCommunityAgents')?.value || 'newest';
+
+    // Filter agents
+    let filtered = agents.filter(agent => {
+        const matchesSearch = !searchTerm ||
+            agent.name.toLowerCase().includes(searchTerm) ||
+            agent.description.toLowerCase().includes(searchTerm) ||
+            (agent.tags || []).some(t => t.toLowerCase().includes(searchTerm));
+
+        const matchesCategory = !categoryFilter ||
+            (agent.tags || []).some(t => t.toLowerCase() === categoryFilter.toLowerCase()) ||
+            agent.data?.agentConfig?.domain?.toLowerCase() === categoryFilter.toLowerCase();
+
+        return matchesSearch && matchesCategory;
+    });
+
+    // Sort agents
+    filtered.sort((a, b) => {
+        if (sortBy === 'newest') {
+            return new Date(b.publishedAt) - new Date(a.publishedAt);
+        } else if (sortBy === 'popular') {
+            return (b.downloads || 0) - (a.downloads || 0);
+        } else if (sortBy === 'name') {
+            return a.name.localeCompare(b.name);
+        }
+        return 0;
+    });
+
+    countSpan.textContent = filtered.length;
+
+    if (filtered.length === 0) {
+        emptyDiv.classList.remove('hidden');
+        listDiv.classList.add('hidden');
+        return;
+    }
+
+    listDiv.innerHTML = filtered.map(agent => `
+        <div class="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+            <div class="flex justify-between items-start mb-2">
+                <h4 class="font-semibold text-gray-900">${escapeHtml(agent.name)}</h4>
+                <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">
+                    ${escapeHtml(agent.data?.agentConfig?.domain || 'general')}
+                </span>
+            </div>
+            <p class="text-sm text-gray-600 mb-3 line-clamp-2">${escapeHtml(agent.description)}</p>
+            <div class="flex flex-wrap gap-1 mb-3">
+                ${(agent.tags || []).slice(0, 4).map(tag => `
+                    <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${escapeHtml(tag)}</span>
+                `).join('')}
+            </div>
+            <div class="flex justify-between items-center text-xs text-gray-500">
+                <span>by ${escapeHtml(agent.author || 'Anonymous')}</span>
+                <span>${agent.downloads || 0} imports</span>
+            </div>
+            <div class="mt-3 flex gap-2">
+                <button onclick="previewCommunityAgent('${agent.id}')" class="flex-1 px-3 py-1.5 text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 rounded transition-colors">
+                    👁️ Preview
+                </button>
+                <button onclick="importCommunityAgent('${agent.id}')" class="flex-1 px-3 py-1.5 text-xs bg-emerald-600 hover:bg-emerald-700 text-white rounded transition-colors">
+                    📥 Import
+                </button>
+            </div>
+        </div>
+    `).join('');
+
+    listDiv.classList.remove('hidden');
+}
+
+// Preview a community agent
+function previewCommunityAgent(agentId) {
+    const agent = communityAgentsCache?.find(a => a.id === agentId);
+    if (!agent) {
+        showToast('Agent not found', 'error');
+        return;
+    }
+
+    const kbCount = agent.data?.knowledgeBases?.length || 0;
+    const outputCount = agent.data?.outputs?.length || 0;
+    const toolCount = agent.data?.additionalTools?.length || 0;
+
+    // Create preview modal content
+    const previewHtml = `
+        <div class="fixed inset-0 bg-black bg-opacity-50 z-[60] flex items-center justify-center p-4" id="communityPreviewModal">
+            <div class="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+                <div class="p-6 border-b border-gray-200">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">${escapeHtml(agent.name)}</h3>
+                            <p class="text-sm text-gray-500 mt-1">by ${escapeHtml(agent.author || 'Anonymous')}</p>
+                        </div>
+                        <button onclick="document.getElementById('communityPreviewModal').remove()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <p class="text-gray-700 mb-4">${escapeHtml(agent.description)}</p>
+
+                    <div class="grid grid-cols-3 gap-4 mb-4">
+                        <div class="text-center p-3 bg-gray-50 rounded-lg">
+                            <div class="text-2xl font-bold text-indigo-600">${kbCount}</div>
+                            <div class="text-xs text-gray-500">Knowledge Bases</div>
+                        </div>
+                        <div class="text-center p-3 bg-gray-50 rounded-lg">
+                            <div class="text-2xl font-bold text-emerald-600">${outputCount}</div>
+                            <div class="text-xs text-gray-500">Outputs</div>
+                        </div>
+                        <div class="text-center p-3 bg-gray-50 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-600">${toolCount}</div>
+                            <div class="text-xs text-gray-500">Tools</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-sm text-gray-700 mb-2">Model</h4>
+                        <p class="text-sm text-gray-600">${escapeHtml(agent.data?.agentConfig?.model || 'Not specified')}</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-sm text-gray-700 mb-2">Tags</h4>
+                        <div class="flex flex-wrap gap-1">
+                            ${(agent.tags || []).map(tag => `
+                                <span class="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">${escapeHtml(tag)}</span>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 mt-6">
+                        <button onclick="document.getElementById('communityPreviewModal').remove()" class="flex-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg transition-colors">
+                            Close
+                        </button>
+                        <button onclick="document.getElementById('communityPreviewModal').remove(); importCommunityAgent('${agent.id}')" class="flex-1 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors font-medium">
+                            📥 Import This Agent
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    document.body.insertAdjacentHTML('beforeend', previewHtml);
+}
+
+// Import a community agent
+function importCommunityAgent(agentId) {
+    const agent = communityAgentsCache?.find(a => a.id === agentId);
+    if (!agent || !agent.data) {
+        showToast('Agent data not found', 'error');
+        return;
+    }
+
+    try {
+        // Load the agent configuration into the wizard
+        loadAgentConfiguration(agent.data);
+
+        // Close the community modal
+        closeCommunityGalleryModal();
+
+        showToast(`Imported "${agent.name}" successfully!`, 'success');
+
+        // Optionally save to local repository
+        const savedAgents = JSON.parse(localStorage.getItem('td_saved_agents') || '[]');
+        const exists = savedAgents.some(a => a.id === agentId || a.name === agent.name);
+
+        if (!exists) {
+            savedAgents.push({
+                id: agentId,
+                name: agent.name,
+                description: agent.description,
+                tags: agent.tags || [],
+                savedAt: new Date().toISOString(),
+                source: 'community',
+                data: agent.data
+            });
+            localStorage.setItem('td_saved_agents', JSON.stringify(savedAgents));
+        }
+
+    } catch (error) {
+        console.error('Failed to import agent:', error);
+        showToast('Failed to import agent: ' + error.message, 'error');
+    }
+}
+
+// Open Publish Agent Modal
+function openPublishAgentModal() {
+    const modal = document.getElementById('publishAgentModal');
+    const select = document.getElementById('publishAgentSelect');
+
+    // Populate saved agents dropdown
+    const savedAgents = JSON.parse(localStorage.getItem('td_saved_agents') || '[]');
+    select.innerHTML = '<option value="">-- Select a saved agent --</option>' +
+        '<option value="current">📝 Current Configuration</option>' +
+        savedAgents.map(agent => `<option value="${agent.id}">${escapeHtml(agent.name)}</option>`).join('');
+
+    // Reset form
+    document.getElementById('publishAuthorName').value = localStorage.getItem('td_author_name') || '';
+    document.getElementById('publishTags').value = '';
+    document.getElementById('publishStatus').classList.add('hidden');
+
+    modal.classList.remove('hidden');
+}
+
+// Close Publish Agent Modal
+function closePublishAgentModal() {
+    const modal = document.getElementById('publishAgentModal');
+    modal.classList.add('hidden');
+}
+
+// Publish agent to community
+async function publishAgentToCommunity() {
+    const agentSelect = document.getElementById('publishAgentSelect');
+    const authorName = document.getElementById('publishAuthorName').value.trim();
+    const category = document.getElementById('publishCategory').value;
+    const tagsInput = document.getElementById('publishTags').value.trim();
+
+    // Validation
+    if (!agentSelect.value) {
+        showToast('Please select an agent to publish', 'error');
+        return;
+    }
+
+    if (!authorName) {
+        showToast('Please enter your name', 'error');
+        return;
+    }
+
+    // Save author name for future use
+    localStorage.setItem('td_author_name', authorName);
+
+    // Get agent data
+    let agentData;
+    let agentName;
+    let agentDescription;
+
+    if (agentSelect.value === 'current') {
+        // Use current configuration
+        agentData = collectCurrentConfiguration();
+        agentName = agentConfig.agentName || 'Untitled Agent';
+        agentDescription = agentConfig.projectDescription || '';
+    } else {
+        // Get from saved agents
+        const savedAgents = JSON.parse(localStorage.getItem('td_saved_agents') || '[]');
+        const savedAgent = savedAgents.find(a => a.id === agentSelect.value);
+        if (!savedAgent) {
+            showToast('Agent not found', 'error');
+            return;
+        }
+        agentData = savedAgent.data;
+        agentName = savedAgent.name;
+        agentDescription = savedAgent.description;
+    }
+
+    // Parse tags
+    const tags = tagsInput ? tagsInput.split(',').map(t => t.trim()).filter(t => t) : [];
+    tags.push(category); // Add category as a tag
+
+    // Show loading
+    const statusDiv = document.getElementById('publishStatus');
+    const loadingDiv = document.getElementById('publishLoading');
+    const successDiv = document.getElementById('publishSuccess');
+    const errorDiv = document.getElementById('publishError');
+
+    statusDiv.classList.remove('hidden');
+    loadingDiv.classList.remove('hidden');
+    successDiv.classList.add('hidden');
+    errorDiv.classList.add('hidden');
+    document.getElementById('publishConfirmBtn').disabled = true;
+
+    try {
+        // Call the publish API endpoint
+        const response = await fetch('/api/community/publish', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: agentName,
+                description: agentDescription,
+                author: authorName,
+                tags: tags,
+                data: agentData
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.message || 'Failed to publish');
+        }
+
+        const result = await response.json();
+
+        // Show success
+        loadingDiv.classList.add('hidden');
+        successDiv.classList.remove('hidden');
+
+        // Refresh community agents cache
+        communityAgentsCache = null;
+
+        showToast('Agent published to community!', 'success');
+
+        // Close modal after delay
+        setTimeout(() => {
+            closePublishAgentModal();
+            loadCommunityAgents(true); // Force refresh
+        }, 2000);
+
+    } catch (error) {
+        console.error('Failed to publish:', error);
+        loadingDiv.classList.add('hidden');
+        errorDiv.classList.remove('hidden');
+        document.getElementById('publishErrorMessage').textContent = error.message;
+        document.getElementById('publishConfirmBtn').disabled = false;
+    }
+}
+
+// Collect current wizard configuration
+function collectCurrentConfiguration() {
+    return {
+        version: '1.0',
+        agentConfig: {
+            domain: agentConfig.domain || 'general',
+            agentName: agentConfig.agentName || document.getElementById('agentName')?.value || '',
+            projectName: agentConfig.projectName || document.getElementById('projectName')?.value || '',
+            projectDescription: agentConfig.projectDescription || document.getElementById('projectDescription')?.value || '',
+            model: document.getElementById('modelSelect')?.value || 'anthropic.claude-3.5-sonnet',
+            temperature: parseFloat(document.getElementById('temperature')?.value) || 0.5,
+            maxToolsIterations: parseInt(document.getElementById('maxToolsIterations')?.value) || 0,
+            systemPrompt: document.getElementById('systemPrompt')?.value || ''
+        },
+        knowledgeBases: knowledgeBases || [],
+        additionalTools: additionalTools || [],
+        outputs: outputs || [],
+        promptVariables: promptVariables || []
+    };
+}
+
+// Add event listeners for community gallery
+document.addEventListener('DOMContentLoaded', function() {
+    // Community Gallery button
+    const communityBtn = document.getElementById('communityGalleryBtn');
+    if (communityBtn) {
+        communityBtn.addEventListener('click', openCommunityGalleryModal);
+    }
+
+    // Search and filter handlers
+    const searchInput = document.getElementById('searchCommunityAgents');
+    if (searchInput) {
+        searchInput.addEventListener('input', () => {
+            if (communityAgentsCache) {
+                displayCommunityAgents(communityAgentsCache);
+            }
+        });
+    }
+
+    const categoryFilter = document.getElementById('filterCommunityCategory');
+    if (categoryFilter) {
+        categoryFilter.addEventListener('change', () => {
+            if (communityAgentsCache) {
+                displayCommunityAgents(communityAgentsCache);
+            }
+        });
+    }
+
+    const sortSelect = document.getElementById('sortCommunityAgents');
+    if (sortSelect) {
+        sortSelect.addEventListener('change', () => {
+            if (communityAgentsCache) {
+                displayCommunityAgents(communityAgentsCache);
+            }
+        });
+    }
+});
+
+// ============================================================================
 // INITIALIZATION
 // ============================================================================
 
