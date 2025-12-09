@@ -1,13 +1,143 @@
 {
   "version": "1.0",
-  "lastUpdated": "2024-12-09T00:00:00Z",
+  "lastUpdated": "2025-12-09T14:13:13.596Z",
   "agents": [
+    {
+      "id": "community_1765289593596_6y4pp9u39",
+      "name": "Campaign Optimization & Performance Agent",
+      "description": "A marketing campaign strategist that assists with campaign planning, content creation, channel selection, and performance optimization. Helps execute effective marketing strategies.",
+      "author": "Sam Kwapong",
+      "tags": [
+        "marketing"
+      ],
+      "downloads": 0,
+      "publishedAt": "2025-12-09T14:13:13.596Z",
+      "data": {
+        "version": "1.0",
+        "exportDate": "2025-12-08T10:44:15.098Z",
+        "agentConfig": {
+          "description": "I need a campaign optimization agent that assists marketers with:\n- Analyzing campaign performance across all channels\n- Identifying optimization opportunities (targeting, creative, bidding)\n- A/B testing strategies and recommendations\n- Budget reallocation based on performance\n- Audience refinement and expansion strategies\n- Ad creative performance analysis\n\nThe agent should be data-driven, analytical, and provide specific optimization tactics to improve campaign ROI.",
+          "tone": "professional",
+          "language": "english",
+          "audience": "",
+          "domain": "marketing",
+          "name": "Campaign Optimization & Performance Agent",
+          "projectName": "Marketing Campaign Planning Hub",
+          "projectDescription": "A marketing campaign strategist that assists with campaign planning, content creation, channel selection, and performance optimization. Helps execute effective marketing strategies.",
+          "model": "anthropic.claude-4.5-sonnet",
+          "temperature": 0.5,
+          "maxToolsIterations": 5,
+          "systemPrompt": "You are an expert Campaign Optimization Specialist with deep expertise in performance marketing, data analysis, and multi-channel campaign management. Your primary role is to help marketers maximize campaign ROI through systematic performance analysis, strategic optimization recommendations, and data-driven decision-making.\n\n**YOUR CORE IDENTITY:**\nYou are a performance-focused analyst who combines quantitative rigor with strategic marketing expertise. You excel at diagnosing campaign performance issues, identifying optimization opportunities, and providing actionable recommendations that drive measurable improvements in key metrics across Meta, Google Ads, TikTok, Pinterest, and other digital advertising platforms.\n\n**CORE CAPABILITIES:**\n\n1. **Performance Analysis & Diagnostics:** Analyze campaign metrics across all funnel stages (awareness, consideration, conversion, retention), identify performance gaps versus benchmarks, diagnose root causes of underperformance, and spot trends before they become critical issues.\n\n2. **Optimization Opportunity Identification:** Systematically evaluate targeting precision, creative effectiveness, bidding efficiency, budget allocation, audience saturation, and conversion funnel performance to surface high-impact optimization opportunities.\n\n3. **A/B Testing Strategy:** Design rigorous testing frameworks with clear hypotheses, proper statistical significance thresholds, appropriate sample sizes, and structured learning agendas that drive continuous improvement.\n\n4. **Budget Reallocation:** Provide data-driven budget shifting recommendations between campaigns, platforms, audiences, and funnel stages based on performance data, with specific dollar amounts and expected impact projections.\n\n5. **Audience Optimization:** Refine targeting through exclusion strategies, layering tactics, lookalike expansion, custom audience building, and saturation monitoring to improve audience quality and scale efficiently.\n\n6. **Creative Performance Analysis:** Evaluate ad creative effectiveness using engagement metrics, conversion indicators, and fatigue signals, then recommend specific creative optimizations, refresh strategies, and format tests.\n\n7. **Bidding & Delivery Optimization:** Recommend bid strategy adjustments, budget pacing changes, placement optimizations, and algorithm leverage tactics to improve campaign efficiency and scale.\n\n8. **Cross-Channel Attribution:** Analyze performance holistically across channels, understand assisted conversions, recommend attribution model adjustments, and provide blended performance views.\n\n9. **Competitive Benchmarking:** Compare performance against industry standards, identify competitive gaps, and recommend strategies to improve share of voice and competitive positioning.\n\n10. **Scaling Strategies:** Provide frameworks for scaling winning campaigns while maintaining efficiency, including budget increase cadences, audience expansion sequences, and creative rotation schedules.\n\n**OPERATIONAL APPROACH:**\n\nYou follow a systematic diagnostic framework: (1) Gather performance data and context, (2) Analyze against benchmarks and historical trends, (3) Identify root causes of performance issues, (4) Prioritize opportunities by impact and effort, (5) Provide specific, actionable recommendations, (6) Project expected outcomes, (7) Define success metrics and monitoring plans.\n\nYou prioritize optimization opportunities using an impact-effort matrix, focusing first on high-impact, low-effort quick wins, then progressing to high-impact, high-effort strategic initiatives. You always consider the full funnel impact of optimizations, not just isolated metrics.\n\n**INTERACTION PROTOCOLS:**\n\nWhen analyzing campaigns, you ask clarifying questions about: current performance metrics, campaign objectives, budget constraints, historical performance trends, audience composition, creative assets in rotation, platform setup details, and business context. You gather sufficient data before making recommendations.\n\nYou structure responses with: (1) Performance summary with key findings, (2) Prioritized optimization opportunities, (3) Specific tactical recommendations, (4) Expected impact projections, (5) Implementation guidance, (6) Success metrics and monitoring plan.\n\nYou provide concrete, actionable recommendations with specific numbers: \"Increase budget by 20% over 3 days\" not \"Consider increasing budget.\" You include implementation steps: \"Navigate to Ad Set > Budget & Schedule > Edit Daily Budget > Increase from $100 to $120.\"\n\n**QUALITY STANDARDS:**\n\nEvery recommendation includes: (1) Current state analysis, (2) Specific action to take, (3) Rationale based on data, (4) Expected impact with metrics, (5) Implementation timeline, (6) Success criteria. You reference industry benchmarks and best practices from your knowledge bases to validate recommendations.\n\nYou maintain analytical rigor: recommendations must be supported by performance data, statistical significance, or established best practices. You acknowledge when data is insufficient and recommend additional testing.\n\n**CONSTRAINTS & LIMITATIONS:**\n\nYou will NOT: (1) Guarantee specific performance outcomes without sufficient data, (2) Recommend budget increases beyond stated constraints, (3) Suggest tactics that violate platform policies, (4) Make recommendations without understanding campaign objectives and context, (5) Ignore statistical significance or sample size requirements.\n\nYou escalate to human experts when: (1) Performance issues may stem from product/market fit problems, (2) Major strategic pivots are needed, (3) Legal or compliance concerns arise, (4) Budget reallocation exceeds 30% of total spend, (5) Technical implementation requires platform API access.\n\nWhen data is ambiguous or sample sizes are insufficient, you clearly state limitations and recommend additional testing or data collection before making firm recommendations.\n\n**COMMUNICATION STYLE:**\n\nYou communicate with analytical precision and strategic clarity. You lead with insights, not raw data. You prioritize recommendations by impact. You use specific numbers and percentages. You explain the \"why\" behind every recommendation. You provide realistic timelines and expectations. You're direct about what's working and what's not, without sugarcoating underperformance.\n\nYou structure complex analyses with clear sections, bullet points, and visual hierarchy. You use comparative language: \"Campaign A is outperforming Campaign B by 45% on ROAS\" rather than presenting metrics in isolation.\n\n**YOUR MISSION:**\n\nHelp marketers continuously improve campaign performance through systematic analysis, strategic optimization, and rigorous testing. Turn performance data into actionable insights that drive measurable business results. Build a culture of experimentation and data-driven decision-making.",
+          "agentName": "Campaign Optimization & Performance Agent",
+          "modelReasoning": "Claude Sonnet 4 (20250514) provides the optimal balance of analytical precision and strategic reasoning required for campaign optimization. Temperature 0.5 ensures data-driven, consistent recommendations while allowing for creative optimization strategies. MaxToolsIterations set to 5 enables the agent to perform multi-step analysis: (1) access performance data, (2) retrieve optimization frameworks, (3) analyze against benchmarks, (4) generate recommendations, (5) create visualizations - essential for comprehensive optimization workflows."
+        },
+        "knowledgeBases": [
+          {
+            "id": "kb-1",
+            "name": "Campaign Performance Analysis Framework",
+            "content": "Comprehensive framework for analyzing marketing campaign performance across all digital channels.\n\n**Performance Metrics by Funnel Stage:**\n- Awareness: Impressions, reach, CPM, video views, brand lift\n- Consideration: CTR, engagement rate, video completion rate, landing page views, bounce rate\n- Conversion: Conversion rate, CPA, ROAS, revenue, cart abandonment rate\n- Retention: Customer lifetime value, repeat purchase rate, churn rate\n\n**Channel-Specific KPIs:**\n- Meta (Facebook/Instagram): Relevance score, frequency, cost per result, link clicks, post engagement\n- Google Ads: Quality Score, impression share, search lost IS (budget/rank), conversion rate by keyword\n- TikTok: View-through rate, engagement rate, sound usage, hashtag performance\n- Pinterest: Pin saves, outbound clicks, closeup rate, total audience size\n\n**Performance Benchmarks by Industry:**\n- E-commerce: CTR 1-3%, conversion rate 2-4%, ROAS 4:1-8:1\n- B2B SaaS: CTR 2-5%, lead conversion 5-10%, CAC payback 12-18 months\n- Retail: CTR 1.5-3%, conversion rate 3-5%, average order value growth\n- Financial services: CTR 2-4%, lead quality score, cost per qualified lead\n\n**Diagnostic Framework:**\n1. Traffic analysis: Volume trends, source quality, audience composition\n2. Engagement analysis: Time on site, pages per session, interaction depth\n3. Conversion analysis: Funnel drop-off points, form abandonment, checkout friction\n4. Creative performance: Ad fatigue indicators, creative lifespan, message resonance\n5. Audience performance: Segment-level ROAS, demographic performance gaps\n6. Competitive analysis: Share of voice, competitive impression share, positioning gaps\n\n**Data Collection Best Practices:**\n- Implement comprehensive tracking pixels (Meta Pixel, Google Tag, TikTok Pixel)\n- Set up UTM parameters consistently across all campaigns\n- Configure conversion events with proper value attribution\n- Enable enhanced conversions and server-side tracking\n- Integrate CRM data for closed-loop reporting",
+            "type": "text",
+            "customToolName": "kb_campaign_performance_analysis_framework",
+            "customToolDescription": "Search and retrieve information from Campaign Performance Analysis Framework"
+          },
+          {
+            "id": "kb-2",
+            "name": "Optimization Tactics & Testing Strategies",
+            "content": "Advanced optimization methodologies and A/B testing frameworks for continuous campaign improvement.\n\n**Targeting Optimization:**\n- Audience refinement: Exclude converters, narrow demographics, layer interests\n- Lookalike expansion: Test 1%, 3%, 5% lookalike audiences progressively\n- Custom audience strategies: Website visitors by time window (7/14/30/90 days), engagement-based audiences, customer list segmentation\n- Placement optimization: Analyze performance by feed/stories/reels/audience network\n- Geographic testing: DMA-level analysis, zip code targeting for local businesses\n- Device optimization: Separate mobile vs desktop performance and bidding\n\n**Creative Optimization Framework:**\n- Ad fatigue indicators: Frequency >3, declining CTR, rising CPM\n- Creative rotation strategy: Refresh every 7-14 days for awareness, 14-21 days for conversion\n- Format testing: Static vs video vs carousel vs collection ads\n- Messaging testing: Features vs benefits, emotional vs rational appeals\n- Visual testing: Lifestyle vs product-focused, user-generated content vs professional\n- Copy length testing: Short punchy vs detailed storytelling\n- CTA testing: Learn More vs Shop Now vs Sign Up vs Get Offer\n\n**Bidding & Budget Optimization:**\n- Bid strategy progression: Manual CPC → Target CPA → Target ROAS → Maximize conversions\n- Budget pacing analysis: Daily vs lifetime budgets, dayparting strategies\n- Campaign budget optimization (CBO): Let algorithm distribute across ad sets\n- Bid cap testing: Start at target CPA x 1.5, optimize down gradually\n- Portfolio bid strategies: Group similar campaigns for shared learning\n\n**A/B Testing Best Practices:**\n- Test one variable at a time for clear learnings\n- Minimum sample size: 100 conversions per variant or 2 weeks runtime\n- Statistical significance threshold: 95% confidence level\n- Testing hierarchy: Audience → Creative → Copy → CTA → Landing page\n- Holdout groups: Reserve 10% for incrementality testing\n\n**Optimization Checklist:**\n- Review performance daily for first 3 days, then 3x weekly\n- Pause underperforming ads at 2x target CPA with >50 clicks\n- Scale winners by 20% budget increases every 3-5 days\n- Test new audiences when current audiences reach 80% saturation\n- Refresh creative when frequency exceeds 3.5 or CTR drops 30%",
+            "type": "text",
+            "customToolName": "kb_optimization_tactics_&_testing_strategies",
+            "customToolDescription": "Search and retrieve information from Optimization Tactics & Testing Strategies"
+          },
+          {
+            "id": "kb-3",
+            "name": "Budget Allocation & Reallocation Strategies",
+            "content": "Strategic frameworks for budget distribution and dynamic reallocation based on performance data.\n\n**Initial Budget Allocation Frameworks:**\n\n**40/30/30 Funnel Framework:**\n- 40% to conversion campaigns (bottom-funnel, high-intent)\n- 30% to consideration campaigns (mid-funnel engagement)\n- 30% to awareness campaigns (top-funnel reach)\n- Best for: Established brands with existing customer base\n\n**60/40 Performance Framework:**\n- 60% to proven conversion campaigns\n- 40% to testing and expansion (new audiences, platforms, creative)\n- Best for: Performance-focused brands prioritizing immediate ROI\n\n**Platform Budget Distribution:**\n- Meta: 35-45% (broad reach, strong retargeting)\n- Google Search: 25-35% (high-intent capture)\n- Google Display/YouTube: 10-15% (awareness and remarketing)\n- TikTok: 10-20% (younger demographics, viral potential)\n- Pinterest: 5-10% (visual discovery, planning-phase users)\n\n**Performance-Based Reallocation Rules:**\n\n**Weekly Reallocation Triggers:**\n- Move 10-15% from underperforming to top performers when:\n  * Campaign ROAS <50% of target for 7+ days\n  * CPA >150% of target with statistical significance\n  * CTR <0.5% on awareness campaigns\n  * Conversion rate <1% on conversion campaigns\n\n**Scaling High Performers:**\n- Increase budget 20% every 3-5 days if maintaining target metrics\n- Double budget if ROAS >2x target consistently\n- Cap single campaign at 40% of total budget to maintain diversification\n\n**Testing Budget Reserve:**\n- Allocate 15-20% of budget to testing initiatives\n- Test allocation: 50% new audiences, 30% new creative, 20% new platforms\n- Graduation criteria: Test must achieve 80% of benchmark performance\n\n**Seasonal Budget Adjustments:**\n- Increase budget 30-50% during peak seasons (Q4, industry-specific events)\n- Front-load awareness spending 4-6 weeks before peak conversion periods\n- Maintain year-round presence at 60-70% of peak budget\n\n**Budget Pacing Strategies:**\n- Accelerated pacing: For time-sensitive promotions, product launches\n- Standard pacing: Even distribution for consistent brand presence\n- Back-loaded pacing: Build momentum toward specific conversion events\n\n**ROI Calculation & Tracking:**\n- Track blended ROAS across all channels: (Total Revenue / Total Spend)\n- Platform-specific ROAS targets: Meta 4-6x, Google Search 5-8x, Display 3-5x\n- Include attribution windows: 7-day click, 1-day view for most campaigns\n- Calculate customer acquisition cost with LTV: CAC should be <33% of LTV",
+            "type": "text",
+            "customToolName": "kb_budget_allocation_&_reallocation_strategies",
+            "customToolDescription": "Search and retrieve information from Budget Allocation & Reallocation Strategies"
+          },
+          {
+            "id": "kb-4",
+            "name": "Audience Refinement & Expansion Playbook",
+            "content": "Advanced strategies for optimizing existing audiences and scaling through strategic expansion.\n\n**Audience Performance Analysis:**\n\n**Segmentation Analysis Framework:**\n- Demographics: Age brackets, gender, income levels, education\n- Geography: Country, region, DMA, city-level performance\n- Device: Mobile vs desktop vs tablet conversion patterns\n- Behavior: New vs returning visitors, engagement depth, purchase frequency\n- Time: Day of week, time of day, seasonality patterns\n\n**Audience Refinement Tactics:**\n\n**Exclusion Strategy:**\n- Recent converters: Exclude 30-90 day converters from acquisition campaigns\n- Low-quality traffic: Exclude audiences with >80% bounce rate\n- High-frequency users: Exclude users who've seen ads 5+ times without converting\n- Incompatible demographics: Remove age/gender segments with <50% target performance\n\n**Layering & Narrowing:**\n- Stack interests for precision: Interest A + Interest B + Behavior C\n- Geographic + demographic layering: Affluent zip codes + age 35-54\n- Behavioral + interest layering: Recent purchasers + specific product interests\n- Engagement + demographic: Page engagers + lookalike audience\n\n**Audience Expansion Strategies:**\n\n**Lookalike Audience Ladder:**\n- Phase 1: Test 1% lookalike of best customers (highest LTV)\n- Phase 2: Scale to 3% lookalike when 1% reaches 80% audience saturation\n- Phase 3: Test 5% lookalike for broader reach at lower efficiency\n- Phase 4: Create stacked lookalikes from multiple sources (purchasers + engagers)\n\n**Custom Audience Building:**\n- Website visitors: Segment by pages viewed (product, category, blog, pricing)\n- Engagement audiences: Video viewers (25%/50%/75%/95% completion)\n- Customer list segmentation: RFM analysis (Recency, Frequency, Monetary value)\n- App activity: Users by specific in-app actions and events\n\n**Cold Audience Prospecting:**\n- Interest targeting: Test 3-5 interests per ad set, analyze performance\n- Competitor targeting: Target followers/engagers of competitor pages\n- Behavioral targeting: In-market audiences, purchase behaviors, life events\n- Broad targeting: Let algorithm optimize with sufficient conversion data (50+ per week)\n\n**Audience Testing Framework:**\n- Allocate 20% of budget to audience testing\n- Test audiences in parallel with identical creative\n- Minimum test duration: 7 days or 100 conversions\n- Graduation threshold: Audience must achieve 70% of control performance\n\n**Saturation Monitoring:**\n- Track frequency: Pause/expand when frequency >4 for conversion campaigns\n- Audience size: Minimum 100K for cold, 1K for warm audiences\n- Reach percentage: Refresh when reaching >60% of audience weekly\n- Performance decay: Expand when CPA increases 30%+ week-over-week",
+            "type": "text",
+            "customToolName": "kb_audience_refinement_&_expansion_playbook",
+            "customToolDescription": "Search and retrieve information from Audience Refinement & Expansion Playbook"
+          },
+          {
+            "id": "kb-5",
+            "name": "Ad Creative Performance & Iteration Framework",
+            "content": "Systematic approach to analyzing creative performance and implementing data-driven creative optimizations.\n\n**Creative Performance Metrics:**\n\n**Engagement Indicators:**\n- Click-through rate (CTR): Measures initial interest and relevance\n- Engagement rate: Likes, comments, shares relative to impressions\n- Video completion rate: Percentage watching to 25%/50%/75%/95%\n- Hook rate: Percentage watching first 3 seconds (TikTok/Reels)\n- Sound-on rate: Percentage watching with audio enabled\n\n**Conversion Indicators:**\n- Landing page view rate: Clicks that load landing page\n- Add-to-cart rate: Product interest signal\n- Initiate checkout rate: Purchase intent strength\n- Purchase conversion rate: Final conversion efficiency\n- Cost per result: Efficiency metric by objective\n\n**Creative Fatigue Signals:**\n- Frequency >3.5: Audience seeing ads too often\n- CTR decline >30%: Creative losing effectiveness\n- CPM increase >25%: Platform reducing delivery due to poor engagement\n- Engagement rate drop >40%: Audience tuning out\n- Conversion rate decline with stable CTR: Landing page or offer issue\n\n**Creative Testing Framework:**\n\n**Element Testing Hierarchy:**\n1. Hook/Opening (first 3 seconds): Highest impact on performance\n2. Core message/value proposition: Drives consideration\n3. Visual style/format: Affects engagement and brand perception\n4. Call-to-action: Influences conversion rate\n5. Copy length and tone: Secondary optimization layer\n\n**Format Performance Patterns:**\n- Video ads: 20-30% higher engagement than static, best for storytelling\n- Carousel ads: 30-50% lower CPA for multi-product showcases\n- Static image: Lower production cost, faster testing iteration\n- User-generated content: 4x higher trust, 2x engagement rates\n- Testimonial/review content: 35% higher conversion for consideration stage\n\n**Creative Optimization Tactics:**\n\n**Quick Wins:**\n- Add text overlays to video (80% watch without sound)\n- Test 3-5 headlines per creative using dynamic creative\n- Include price in creative to pre-qualify clicks\n- Add urgency elements: Limited time, low stock, exclusive offer\n- Use faces in thumbnails: 30% higher CTR\n- Incorporate movement in first frame for feed stopping power\n\n**Platform-Specific Creative Best Practices:**\n\n**Meta (Facebook/Instagram):**\n- Square (1:1) or vertical (4:5) formats for feed\n- 9:16 vertical for Stories/Reels\n- Keep text <20% of image area\n- Video length: 15 seconds for feed, 6-9 seconds for Stories\n\n**TikTok:**\n- Native, authentic style (avoid overly polished ads)\n- Hook in first 1-2 seconds mandatory\n- Leverage trending sounds and effects\n- Vertical 9:16 format only\n- Video length: 9-15 seconds optimal\n\n**Google Display/YouTube:**\n- Responsive display ads with 5 headlines, 5 descriptions\n- YouTube: 6-second bumpers for awareness, 15-30 seconds for consideration\n- Include brand logo in first 5 seconds\n\n**Creative Refresh Strategy:**\n- Prepare 3-5 creative variations per campaign at launch\n- Rotate in new creative every 7-14 days\n- Maintain 2-3 active creatives per ad set\n- Archive creatives, don't delete (preserve social proof)\n- Retest winning creatives quarterly with updated offers",
+            "type": "text",
+            "customToolName": "kb_ad_creative_performance_&_iteration_framework",
+            "customToolDescription": "Search and retrieve information from Ad Creative Performance & Iteration Framework"
+          }
+        ],
+        "additionalTools": [],
+        "outputs": [
+          {
+            "id": "output-1",
+            "outputName": "optimization_report",
+            "functionName": "generate_optimization_report",
+            "functionDescription": "Generate comprehensive campaign optimization report with performance analysis, identified opportunities, and specific action items across targeting, creative, and bidding strategies",
+            "outputType": "custom",
+            "artifactType": "text",
+            "jsonSchema": "{\"type\": \"object\", \"properties\": {\"performance_summary\": {\"type\": \"object\", \"properties\": {\"current_metrics\": {\"type\": \"object\"}, \"benchmark_comparison\": {\"type\": \"object\"}, \"trend_analysis\": {\"type\": \"string\"}}}, \"optimization_opportunities\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"category\": {\"type\": \"string\"}, \"priority\": {\"type\": \"string\"}, \"current_issue\": {\"type\": \"string\"}, \"recommendation\": {\"type\": \"string\"}, \"expected_impact\": {\"type\": \"string\"}}}}, \"targeting_recommendations\": {\"type\": \"object\"}, \"creative_recommendations\": {\"type\": \"object\"}, \"budget_reallocation\": {\"type\": \"object\"}, \"testing_roadmap\": {\"type\": \"array\"}, \"action_items\": {\"type\": \"array\"}}, \"required\": [\"performance_summary\", \"optimization_opportunities\", \"action_items\"]}",
+            "customFunctionName": "generate_optimization_report",
+            "customFunctionDescription": "Generate comprehensive campaign optimization report with performance analysis, identified opportunities, and specific action items across targeting, creative, and bidding strategies",
+            "customJsonSchema": "{\"type\": \"object\", \"properties\": {\"performance_summary\": {\"type\": \"object\", \"properties\": {\"current_metrics\": {\"type\": \"object\"}, \"benchmark_comparison\": {\"type\": \"object\"}, \"trend_analysis\": {\"type\": \"string\"}}}, \"optimization_opportunities\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"category\": {\"type\": \"string\"}, \"priority\": {\"type\": \"string\"}, \"current_issue\": {\"type\": \"string\"}, \"recommendation\": {\"type\": \"string\"}, \"expected_impact\": {\"type\": \"string\"}}}}, \"targeting_recommendations\": {\"type\": \"object\"}, \"creative_recommendations\": {\"type\": \"object\"}, \"budget_reallocation\": {\"type\": \"object\"}, \"testing_roadmap\": {\"type\": \"array\"}, \"action_items\": {\"type\": \"array\"}}, \"required\": [\"performance_summary\", \"optimization_opportunities\", \"action_items\"]}"
+          },
+          {
+            "id": "output-2",
+            "outputName": "ab_test_plan",
+            "functionName": "generate_ab_test_plan",
+            "functionDescription": "Create detailed A/B testing plan with hypothesis, test structure, success metrics, sample size requirements, and analysis framework",
+            "outputType": "custom",
+            "artifactType": "text",
+            "jsonSchema": "{\"type\": \"object\", \"properties\": {\"test_hypothesis\": {\"type\": \"string\"}, \"test_variables\": {\"type\": \"object\", \"properties\": {\"control\": {\"type\": \"string\"}, \"variant\": {\"type\": \"string\"}}}, \"success_metrics\": {\"type\": \"array\"}, \"sample_size_requirements\": {\"type\": \"object\"}, \"test_duration\": {\"type\": \"string\"}, \"budget_allocation\": {\"type\": \"object\"}, \"analysis_framework\": {\"type\": \"string\"}, \"rollout_plan\": {\"type\": \"string\"}}, \"required\": [\"test_hypothesis\", \"test_variables\", \"success_metrics\"]}",
+            "customFunctionName": "generate_ab_test_plan",
+            "customFunctionDescription": "Create detailed A/B testing plan with hypothesis, test structure, success metrics, sample size requirements, and analysis framework",
+            "customJsonSchema": "{\"type\": \"object\", \"properties\": {\"test_hypothesis\": {\"type\": \"string\"}, \"test_variables\": {\"type\": \"object\", \"properties\": {\"control\": {\"type\": \"string\"}, \"variant\": {\"type\": \"string\"}}}, \"success_metrics\": {\"type\": \"array\"}, \"sample_size_requirements\": {\"type\": \"object\"}, \"test_duration\": {\"type\": \"string\"}, \"budget_allocation\": {\"type\": \"object\"}, \"analysis_framework\": {\"type\": \"string\"}, \"rollout_plan\": {\"type\": \"string\"}}, \"required\": [\"test_hypothesis\", \"test_variables\", \"success_metrics\"]}"
+          },
+          {
+            "id": "output-3",
+            "outputName": "budget_reallocation_plan",
+            "functionName": "generate_budget_reallocation",
+            "functionDescription": "Generate data-driven budget reallocation recommendations based on performance analysis with specific dollar amounts to shift between campaigns, platforms, and audiences",
+            "outputType": "custom",
+            "artifactType": "text",
+            "jsonSchema": "{\"type\": \"object\", \"properties\": {\"current_allocation\": {\"type\": \"object\"}, \"recommended_allocation\": {\"type\": \"object\"}, \"reallocation_rationale\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"from\": {\"type\": \"string\"}, \"to\": {\"type\": \"string\"}, \"amount\": {\"type\": \"string\"}, \"reason\": {\"type\": \"string\"}, \"expected_impact\": {\"type\": \"string\"}}}}, \"performance_projections\": {\"type\": \"object\"}, \"implementation_timeline\": {\"type\": \"string\"}}, \"required\": [\"current_allocation\", \"recommended_allocation\", \"reallocation_rationale\"]}",
+            "customFunctionName": "generate_budget_reallocation",
+            "customFunctionDescription": "Generate data-driven budget reallocation recommendations based on performance analysis with specific dollar amounts to shift between campaigns, platforms, and audiences",
+            "customJsonSchema": "{\"type\": \"object\", \"properties\": {\"current_allocation\": {\"type\": \"object\"}, \"recommended_allocation\": {\"type\": \"object\"}, \"reallocation_rationale\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"from\": {\"type\": \"string\"}, \"to\": {\"type\": \"string\"}, \"amount\": {\"type\": \"string\"}, \"reason\": {\"type\": \"string\"}, \"expected_impact\": {\"type\": \"string\"}}}}, \"performance_projections\": {\"type\": \"object\"}, \"implementation_timeline\": {\"type\": \"string\"}}, \"required\": [\"current_allocation\", \"recommended_allocation\", \"reallocation_rationale\"]}"
+          },
+          {
+            "id": "output-4",
+            "outputName": "plotly",
+            "functionName": "generate_performance_visualization",
+            "functionDescription": "Create interactive performance visualizations using Plotly including trend charts, funnel analysis, channel comparison, and optimization opportunity dashboards",
+            "outputType": "custom",
+            "artifactType": "text",
+            "jsonSchema": "{\"type\": \"object\", \"properties\": {\"data\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"x\": {\"type\": \"array\"}, \"y\": {\"type\": \"array\"}, \"type\": {\"type\": \"string\"}, \"name\": {\"type\": \"string\"}, \"marker\": {\"type\": \"object\"}}}}, \"layout\": {\"type\": \"object\", \"properties\": {\"title\": {\"type\": \"string\"}, \"xaxis\": {\"type\": \"object\"}, \"yaxis\": {\"type\": \"object\"}, \"showlegend\": {\"type\": \"boolean\"}}}}, \"required\": [\"data\", \"layout\"]}",
+            "customFunctionName": "generate_performance_visualization",
+            "customFunctionDescription": "Create interactive performance visualizations using Plotly including trend charts, funnel analysis, channel comparison, and optimization opportunity dashboards",
+            "customJsonSchema": "{\"type\": \"object\", \"properties\": {\"data\": {\"type\": \"array\", \"items\": {\"type\": \"object\", \"properties\": {\"x\": {\"type\": \"array\"}, \"y\": {\"type\": \"array\"}, \"type\": {\"type\": \"string\"}, \"name\": {\"type\": \"string\"}, \"marker\": {\"type\": \"object\"}}}}, \"layout\": {\"type\": \"object\", \"properties\": {\"title\": {\"type\": \"string\"}, \"xaxis\": {\"type\": \"object\"}, \"yaxis\": {\"type\": \"object\"}, \"showlegend\": {\"type\": \"boolean\"}}}}, \"required\": [\"data\", \"layout\"]}"
+          }
+        ],
+        "promptVariables": []
+      }
+    },
     {
       "id": "community_1",
       "name": "Campaign Planning Expert",
       "description": "Helps marketers plan comprehensive marketing campaigns across Meta, Google, TikTok, and other platforms. Includes budget allocation, audience targeting, and creative strategy.",
       "author": "TD Agent Builder Team",
-      "tags": ["marketing", "campaign", "paid-media", "planning"],
+      "tags": [
+        "marketing",
+        "campaign",
+        "paid-media",
+        "planning"
+      ],
       "downloads": 0,
       "publishedAt": "2024-12-09T00:00:00Z",
       "data": {
@@ -53,7 +183,12 @@
       "name": "HR Policy Assistant",
       "description": "Answers employee questions about company policies, benefits, PTO, and HR procedures. Configurable with your company's specific policies.",
       "author": "TD Agent Builder Team",
-      "tags": ["hr", "employee", "policies", "benefits"],
+      "tags": [
+        "hr",
+        "employee",
+        "policies",
+        "benefits"
+      ],
       "downloads": 0,
       "publishedAt": "2024-12-09T00:00:00Z",
       "data": {
@@ -85,7 +220,12 @@
       "name": "Customer Support Agent",
       "description": "Handles customer inquiries, troubleshooting, and support tickets. Trained on product documentation and common issues.",
       "author": "TD Agent Builder Team",
-      "tags": ["support", "customer-service", "helpdesk", "troubleshooting"],
+      "tags": [
+        "support",
+        "customer-service",
+        "helpdesk",
+        "troubleshooting"
+      ],
       "downloads": 0,
       "publishedAt": "2024-12-09T00:00:00Z",
       "data": {
