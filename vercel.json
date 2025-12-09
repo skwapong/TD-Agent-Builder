@@ -6,6 +6,10 @@
       "use": "@vercel/node"
     },
     {
+      "src": "api/community/publish.js",
+      "use": "@vercel/node"
+    },
+    {
       "src": "*.html",
       "use": "@vercel/static"
     },
@@ -42,11 +46,6 @@
       "use": "@vercel/static"
     }
   ],
-  "functions": {
-    "api/community/publish.js": {
-      "runtime": "edge"
-    }
-  },
   "routes": [
     {
       "src": "/api/community/publish",

@@ -6,81 +6,97 @@
  *
  * Environment Variables Required:
  * - GITHUB_TOKEN: Personal access token with repo write permissions
- * - GITHUB_REPO: Repository in format "owner/repo" (e.g., "skwapong/agent-builder-wizard-tdllm")
+ * - GITHUB_REPO: Repository in format "owner/repo" (e.g., "skwapong/TD-Agent-Builder")
  */
 
-export const config = {
-    runtime: 'edge',
-};
+const https = require('https');
 
 const GITHUB_API_BASE = 'https://api.github.com';
 const COMMUNITY_FILE_PATH = 'community-agents.json';
 
-export default async function handler(request) {
-    // Handle CORS preflight
-    if (request.method === 'OPTIONS') {
-        return new Response(null, {
-            status: 204,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'POST, OPTIONS',
-                'Access-Control-Allow-Headers': 'Content-Type',
-            },
+// Helper function to make HTTPS requests
+function httpsRequest(url, options, body = null) {
+    return new Promise((resolve, reject) => {
+        const urlObj = new URL(url);
+        const reqOptions = {
+            hostname: urlObj.hostname,
+            path: urlObj.pathname + urlObj.search,
+            method: options.method || 'GET',
+            headers: options.headers || {},
+        };
+
+        const req = https.request(reqOptions, (res) => {
+            let data = '';
+            res.on('data', chunk => data += chunk);
+            res.on('end', () => {
+                resolve({
+                    ok: res.statusCode >= 200 && res.statusCode < 300,
+                    status: res.statusCode,
+                    json: () => Promise.resolve(JSON.parse(data)),
+                    text: () => Promise.resolve(data),
+                });
+            });
         });
+
+        req.on('error', reject);
+
+        if (body) {
+            req.write(typeof body === 'string' ? body : JSON.stringify(body));
+        }
+
+        req.end();
+    });
+}
+
+module.exports = async function handler(req, res) {
+    // Set CORS headers
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+    // Handle CORS preflight
+    if (req.method === 'OPTIONS') {
+        res.status(204).end();
+        return;
     }
 
     // Only allow POST
-    if (request.method !== 'POST') {
-        return new Response(JSON.stringify({ error: 'Method not allowed' }), {
-            status: 405,
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            },
-        });
+    if (req.method !== 'POST') {
+        res.status(405).json({ error: 'Method not allowed' });
+        return;
     }
 
     try {
-        const body = await request.json();
-        const { name, description, author, tags, data } = body;
+        const { name, description, author, tags, data } = req.body;
 
         // Validate required fields
         if (!name || !author || !data) {
-            return new Response(JSON.stringify({
+            res.status(400).json({
                 error: 'Missing required fields',
                 message: 'name, author, and data are required'
-            }), {
-                status: 400,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                },
             });
+            return;
         }
 
         // Get GitHub credentials from environment
         const githubToken = process.env.GITHUB_TOKEN;
-        const githubRepo = process.env.GITHUB_REPO || 'skwapong/agent-builder-wizard-tdllm';
+        const githubRepo = process.env.GITHUB_REPO || 'skwapong/TD-Agent-Builder';
 
         if (!githubToken) {
             console.error('GITHUB_TOKEN not configured');
-            return new Response(JSON.stringify({
+            res.status(500).json({
                 error: 'Server configuration error',
                 message: 'GitHub integration not configured. Please contact the administrator.'
-            }), {
-                status: 500,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*',
-                },
             });
+            return;
         }
 
         // Fetch current community-agents.json from GitHub
         const [owner, repo] = githubRepo.split('/');
         const getFileUrl = `${GITHUB_API_BASE}/repos/${owner}/${repo}/contents/${COMMUNITY_FILE_PATH}`;
 
-        const fileResponse = await fetch(getFileUrl, {
+        const fileResponse = await httpsRequest(getFileUrl, {
+            method: 'GET',
             headers: {
                 'Authorization': `Bearer ${githubToken}`,
                 'Accept': 'application/vnd.github.v3+json',
@@ -95,7 +111,7 @@ export default async function handler(request) {
         }
 
         const fileData = await fileResponse.json();
-        const currentContent = JSON.parse(atob(fileData.content));
+        const currentContent = JSON.parse(Buffer.from(fileData.content, 'base64').toString('utf8'));
         const sha = fileData.sha;
 
         // Generate new agent ID
@@ -119,9 +135,9 @@ export default async function handler(request) {
         currentContent.lastUpdated = new Date().toISOString();
 
         // Update file on GitHub
-        const newContent = btoa(unescape(encodeURIComponent(JSON.stringify(currentContent, null, 2))));
+        const newContent = Buffer.from(JSON.stringify(currentContent, null, 2)).toString('base64');
 
-        const updateResponse = await fetch(getFileUrl, {
+        const updateResponse = await httpsRequest(getFileUrl, {
             method: 'PUT',
             headers: {
                 'Authorization': `Bearer ${githubToken}`,
@@ -129,13 +145,12 @@ export default async function handler(request) {
                 'Content-Type': 'application/json',
                 'User-Agent': 'TD-Agent-Builder',
             },
-            body: JSON.stringify({
-                message: `Add community agent: ${name}`,
-                content: newContent,
-                sha: sha,
-                branch: 'main',
-            }),
-        });
+        }, JSON.stringify({
+            message: `Add community agent: ${name}`,
+            content: newContent,
+            sha: sha,
+            branch: 'main',
+        }));
 
         if (!updateResponse.ok) {
             const errorText = await updateResponse.text();
@@ -145,30 +160,18 @@ export default async function handler(request) {
 
         const updateResult = await updateResponse.json();
 
-        return new Response(JSON.stringify({
+        res.status(200).json({
             success: true,
             message: 'Agent published successfully',
             agentId: newId,
             commit: updateResult.commit?.sha,
-        }), {
-            status: 200,
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            },
         });
 
     } catch (error) {
         console.error('Publish error:', error);
-        return new Response(JSON.stringify({
+        res.status(500).json({
             error: 'Failed to publish',
             message: error.message || 'An unexpected error occurred'
-        }), {
-            status: 500,
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            },
         });
     }
-}
+};
