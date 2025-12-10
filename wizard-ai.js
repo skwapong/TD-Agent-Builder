@@ -10107,6 +10107,40 @@ function updateProgressBar() {
 // ============================================================================
 // CONFIGURATION HELPERS
 // ============================================================================
+
+// Load agent configuration from data object (used by community import, saved agents, etc.)
+function loadAgentConfiguration(importData) {
+    if (!importData) {
+        throw new Error('No configuration data provided');
+    }
+
+    // Load configuration
+    agentConfig = importData.agentConfig || {};
+    knowledgeBases = importData.knowledgeBases || [];
+    additionalTools = importData.additionalTools || [];
+    outputs = importData.outputs || [];
+    promptVariables = importData.promptVariables || [];
+
+    // Update counters
+    kbCounter = knowledgeBases.length;
+    toolCounter = additionalTools.length;
+    outputCounter = outputs.length;
+    variableCounter = promptVariables.length;
+
+    // Populate UI
+    populateFieldsFromConfig();
+    renderKnowledgeBases();
+    renderTools();
+    renderOutputs();
+    renderPromptVariables();
+
+    // Save to auto-save
+    saveToLocalStorage();
+
+    // Update progress
+    updateProgressBar();
+}
+
 function populateFieldsFromConfig() {
     // Step 0/1 fields
     const projectName = document.getElementById('projectName');
