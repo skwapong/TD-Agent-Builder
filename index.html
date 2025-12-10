@@ -570,6 +570,15 @@
             <div class="flex items-center justify-center gap-4 mt-2">
                 <p class="text-sm text-gray-500">Powered by TD LLM API • Agent Builder Wizard</p>
 
+                <!-- Live Online Users Indicator -->
+                <div class="flex items-center gap-1.5 bg-green-50 border border-green-200 rounded-full px-3 py-1">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                    </span>
+                    <span class="text-xs text-green-700 font-medium"><span id="liveOnlineCount">1</span> online</span>
+                </div>
+
                 <!-- Global Language Settings -->
                 <div class="flex items-center gap-2 bg-white rounded-full px-4 py-1 shadow-sm border border-gray-200">
                     <span class="text-xs text-gray-600">🌍</span>
@@ -2255,5 +2264,53 @@ The agent should be strategic, data-driven, and provide actionable recommendatio
 
     <!-- Vercel Web Analytics (for non-framework sites) -->
     <script defer data-domain="agent-foundry-assistant.vercel.app" src="https://cdn.vercel-insights.com/v1/script.js"></script>
+
+    <!-- Live Online Users Tracking via Vercel KV or simple ping -->
+    <script>
+    (function() {
+        const PRESENCE_ENDPOINT = '/api/presence';
+        const HEARTBEAT_INTERVAL = 15000; // 15 seconds
+
+        // Generate or get session ID
+        let sessionId = sessionStorage.getItem('presence_session_id');
+        if (!sessionId) {
+            sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            sessionStorage.setItem('presence_session_id', sessionId);
+        }
+
+        // Update presence via API
+        async function updatePresence(action = 'ping') {
+            try {
+                const response = await fetch(PRESENCE_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sessionId, action })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    const onlineEl = document.getElementById('liveOnlineCount');
+                    if (onlineEl && data.count !== undefined) {
+                        onlineEl.textContent = data.count;
+                    }
+                    console.log('👥 Online users:', data.count);
+                }
+            } catch (e) {
+                console.warn('Presence tracking error:', e);
+            }
+        }
+
+        // Initial ping
+        updatePresence('join');
+
+        // Heartbeat
+        setInterval(() => updatePresence('ping'), HEARTBEAT_INTERVAL);
+
+        // Leave on unload
+        window.addEventListener('beforeunload', () => {
+            navigator.sendBeacon(PRESENCE_ENDPOINT, JSON.stringify({ sessionId, action: 'leave' }));
+        });
+    })();
+    </script>
 </body>
 </html>
