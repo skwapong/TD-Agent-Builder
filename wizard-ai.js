@@ -12565,6 +12565,9 @@ function displayCommunityAgents(agents) {
                         ${escapeHtml(agent.data?.agentConfig?.domain || 'general')}
                     </span>
                     ${isAdmin ? `
+                        <button onclick="editCommunityAgent('${agent.id}')" class="text-blue-500 hover:text-blue-700 text-sm" title="Edit agent (Admin)">
+                            ✏️
+                        </button>
                         <button onclick="deleteCommunityAgent('${agent.id}')" class="text-red-500 hover:text-red-700 text-sm" title="Delete agent (Admin)">
                             🗑️
                         </button>
@@ -12888,6 +12891,166 @@ async function deleteCommunityAgent(agentId) {
     } catch (error) {
         console.error('Failed to delete agent:', error);
         showToast('Failed to delete: ' + error.message, 'error');
+    }
+}
+
+// Edit a community agent (admin only)
+function editCommunityAgent(agentId) {
+    // Check admin status
+    if (!isCommunityAdmin()) {
+        showToast('Admin access required to edit agents', 'error');
+        return;
+    }
+
+    const agent = communityAgentsCache?.find(a => a.id === agentId);
+    if (!agent) {
+        showToast('Agent not found', 'error');
+        return;
+    }
+
+    // Populate the edit modal with agent data
+    document.getElementById('editAgentId').value = agentId;
+    document.getElementById('editAgentName').value = agent.name || '';
+    document.getElementById('editAgentDescription').value = agent.description || '';
+    document.getElementById('editAgentAuthor').value = agent.author || '';
+    document.getElementById('editAgentTags').value = (agent.tags || []).join(', ');
+
+    // Determine category from tags
+    const categories = ['marketing', 'hr', 'support', 'sales', 'analytics', 'other'];
+    const agentCategory = (agent.tags || []).find(t => categories.includes(t.toLowerCase())) || 'other';
+    document.getElementById('editAgentCategory').value = agentCategory.toLowerCase();
+
+    // Populate agent configuration fields
+    const agentData = agent.data || {};
+    const agentConfigData = agentData.agentConfig || {};
+    document.getElementById('editAgentDomain').value = agentConfigData.domain || '';
+    document.getElementById('editAgentModel').value = agentConfigData.model || 'anthropic.claude-4.5-sonnet';
+    document.getElementById('editAgentSystemPrompt').value = agentConfigData.systemPrompt || '';
+
+    // Reset status
+    const statusDiv = document.getElementById('editAgentStatus');
+    statusDiv.classList.add('hidden');
+    document.getElementById('editAgentLoading').classList.remove('hidden');
+    document.getElementById('editAgentSuccess').classList.add('hidden');
+    document.getElementById('editAgentError').classList.add('hidden');
+    document.getElementById('saveEditAgentBtn').disabled = false;
+
+    // Show the modal
+    document.getElementById('editCommunityAgentModal').classList.remove('hidden');
+}
+
+// Close the edit modal
+function closeEditCommunityAgentModal() {
+    document.getElementById('editCommunityAgentModal').classList.add('hidden');
+}
+
+// Save changes to the community agent
+async function saveEditCommunityAgent() {
+    // Check admin status
+    if (!isCommunityAdmin()) {
+        showToast('Admin access required to edit agents', 'error');
+        return;
+    }
+
+    const agentId = document.getElementById('editAgentId').value;
+    const name = document.getElementById('editAgentName').value.trim();
+    const description = document.getElementById('editAgentDescription').value.trim();
+    const author = document.getElementById('editAgentAuthor').value.trim();
+    const tagsInput = document.getElementById('editAgentTags').value.trim();
+    const category = document.getElementById('editAgentCategory').value;
+    const domain = document.getElementById('editAgentDomain').value.trim();
+    const model = document.getElementById('editAgentModel').value;
+    const systemPrompt = document.getElementById('editAgentSystemPrompt').value;
+
+    // Validation
+    if (!name) {
+        showToast('Agent name is required', 'error');
+        return;
+    }
+    if (!description) {
+        showToast('Description is required', 'error');
+        return;
+    }
+
+    // Parse tags and add category
+    let tags = tagsInput ? tagsInput.split(',').map(t => t.trim()).filter(t => t) : [];
+    if (!tags.includes(category)) {
+        tags.push(category);
+    }
+
+    // Show loading
+    const statusDiv = document.getElementById('editAgentStatus');
+    const loadingDiv = document.getElementById('editAgentLoading');
+    const successDiv = document.getElementById('editAgentSuccess');
+    const errorDiv = document.getElementById('editAgentError');
+
+    statusDiv.classList.remove('hidden');
+    loadingDiv.classList.remove('hidden');
+    successDiv.classList.add('hidden');
+    errorDiv.classList.add('hidden');
+    document.getElementById('saveEditAgentBtn').disabled = true;
+
+    try {
+        // Get the original agent to preserve the data structure
+        const originalAgent = communityAgentsCache?.find(a => a.id === agentId);
+        if (!originalAgent) {
+            throw new Error('Original agent not found');
+        }
+
+        // Merge updates with original data
+        const updatedData = {
+            ...originalAgent.data,
+            agentConfig: {
+                ...originalAgent.data?.agentConfig,
+                domain: domain,
+                model: model,
+                systemPrompt: systemPrompt
+            }
+        };
+
+        // Call the update API endpoint
+        const response = await fetch('/api/community/update', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                agentId: agentId,
+                name: name,
+                description: description,
+                author: author,
+                tags: tags,
+                data: updatedData,
+                adminPassword: '!PMAgentSquadAdmin!'
+            }),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message || 'Failed to update agent');
+        }
+
+        // Show success
+        loadingDiv.classList.add('hidden');
+        successDiv.classList.remove('hidden');
+
+        // Clear cache and refresh
+        communityAgentsCache = null;
+        showToast(`Updated "${name}" successfully`, 'success');
+
+        // Close modal after delay
+        setTimeout(() => {
+            closeEditCommunityAgentModal();
+            loadCommunityAgents(true);
+        }, 1500);
+
+    } catch (error) {
+        console.error('Failed to update agent:', error);
+        loadingDiv.classList.add('hidden');
+        errorDiv.classList.remove('hidden');
+        document.getElementById('editAgentErrorMessage').textContent = error.message;
+        document.getElementById('saveEditAgentBtn').disabled = false;
     }
 }
 
