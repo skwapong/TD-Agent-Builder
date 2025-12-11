@@ -1,13 +1,56 @@
 {
   "version": "1.0",
-  "lastUpdated": "2025-12-09T21:00:00.000Z",
+  "lastUpdated": "2025-12-11T18:10:26.691Z",
   "agents": [
+    {
+      "id": "community_1765476626690_sscx32i0z",
+      "name": "Untitled Agent",
+      "description": "aaaa",
+      "author": "AAAA",
+      "tags": [
+        "marketing"
+      ],
+      "downloads": 0,
+      "publishedAt": "2025-12-11T18:10:26.691Z",
+      "data": {
+        "version": "1.0",
+        "agentConfig": {
+          "domain": "general",
+          "agentName": "aaaa",
+          "projectName": "aaaa",
+          "projectDescription": "aaaa",
+          "model": "anthropic.claude-4.5-sonnet",
+          "temperature": 0.5,
+          "maxToolsIterations": 0,
+          "systemPrompt": "aaaa"
+        },
+        "knowledgeBases": [
+          {
+            "id": "kb-1",
+            "name": "a",
+            "content": "aaa",
+            "type": "text",
+            "customToolName": "kb_a",
+            "customToolDescription": "Search and retrieve information from a"
+          }
+        ],
+        "additionalTools": [],
+        "outputs": [],
+        "promptVariables": []
+      }
+    },
     {
       "id": "community_customer-segmentation-cdp",
       "name": "Customer Segmentation Engine",
       "description": "Advanced customer segmentation using RFM analysis, behavioral patterns, and predictive modeling for CDP",
       "author": "TD Agent Builder Team",
-      "tags": ["cdp", "segmentation", "rfm", "analytics", "enterprise"],
+      "tags": [
+        "cdp",
+        "segmentation",
+        "rfm",
+        "analytics",
+        "enterprise"
+      ],
       "downloads": 0,
       "publishedAt": "2025-12-09T21:00:00.000Z",
       "data": {
@@ -70,7 +113,12 @@
       "name": "Customer Journey Orchestrator",
       "description": "Design and optimize multi-touch customer journeys across email, SMS, web, and mobile channels",
       "author": "TD Agent Builder Team",
-      "tags": ["marketing-automation", "journey", "omnichannel", "enterprise"],
+      "tags": [
+        "marketing-automation",
+        "journey",
+        "omnichannel",
+        "enterprise"
+      ],
       "downloads": 0,
       "publishedAt": "2025-12-09T21:00:00.000Z",
       "data": {
@@ -125,7 +173,13 @@
       "name": "Campaign Budget Optimizer",
       "description": "Optimize marketing budget allocation across channels using performance data and predictive modeling",
       "author": "TD Agent Builder Team",
-      "tags": ["marketing", "budget", "optimization", "roi", "analytics"],
+      "tags": [
+        "marketing",
+        "budget",
+        "optimization",
+        "roi",
+        "analytics"
+      ],
       "downloads": 0,
       "publishedAt": "2025-12-09T21:00:00.000Z",
       "data": {
@@ -180,7 +234,13 @@
       "name": "Audience Insights Analyzer",
       "description": "Analyze audience behavior, demographics, and engagement patterns to optimize targeting and personalization",
       "author": "TD Agent Builder Team",
-      "tags": ["marketing", "audience", "analytics", "targeting", "personalization"],
+      "tags": [
+        "marketing",
+        "audience",
+        "analytics",
+        "targeting",
+        "personalization"
+      ],
       "downloads": 0,
       "publishedAt": "2025-12-09T21:00:00.000Z",
       "data": {
@@ -235,7 +295,13 @@
       "name": "Creative Performance Analyst",
       "description": "Analyze ad creative performance, identify winning elements, and optimize creative strategy across channels",
       "author": "TD Agent Builder Team",
-      "tags": ["marketing", "creative", "advertising", "optimization", "analytics"],
+      "tags": [
+        "marketing",
+        "creative",
+        "advertising",
+        "optimization",
+        "analytics"
+      ],
       "downloads": 0,
       "publishedAt": "2025-12-09T21:00:00.000Z",
       "data": {
@@ -290,7 +356,12 @@
       "name": "Campaign Report Generator",
       "description": "Generate comprehensive campaign performance reports with insights, visualizations, and stakeholder-ready presentations",
       "author": "TD Agent Builder Team",
-      "tags": ["marketing", "reporting", "analytics", "dashboards"],
+      "tags": [
+        "marketing",
+        "reporting",
+        "analytics",
+        "dashboards"
+      ],
       "downloads": 0,
       "publishedAt": "2025-12-09T21:00:00.000Z",
       "data": {
@@ -345,7 +416,12 @@
       "name": "Multi-Channel Campaign Coordinator",
       "description": "Orchestrate and synchronize campaigns across multiple channels for cohesive brand messaging and optimal cross-channel performance",
       "author": "TD Agent Builder Team",
-      "tags": ["marketing", "multi-channel", "orchestration", "campaign-management"],
+      "tags": [
+        "marketing",
+        "multi-channel",
+        "orchestration",
+        "campaign-management"
+      ],
       "downloads": 0,
       "publishedAt": "2025-12-09T21:00:00.000Z",
       "data": {
